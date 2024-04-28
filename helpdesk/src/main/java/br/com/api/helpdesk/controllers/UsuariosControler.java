@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/usuarios")
+@RequestMapping("/usuarios") // diz a URL onde ocorre a requisição Rest
 public class UsuariosControler {
     final UsuariosService usuariosService;
 
@@ -26,6 +28,12 @@ public class UsuariosControler {
     // método post de usuários, sua função é de criar um conta
     @PostMapping
     public ResponseEntity<Object> saveUsuarios(@RequestBody @Valid UsuariosDto usuarioDto) {
+        // antes de tudo, irá verificar se o email já está cadastrado
+        // se já estiver, irá enviar a estado de conflito para a requisição
+        if (usuariosService.existsByEmail(usuarioDto.getEmail())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflito: já existe um usuário com este email registrado");
+        }
+
         UsuariosModel usuarioModel = new UsuariosModel(); // cria um modelo para trabalhar com os dados
         BeanUtils.copyProperties(usuarioDto, usuarioModel); // copia os dados para o model
 
@@ -33,5 +41,25 @@ public class UsuariosControler {
         usuarioModel.setDataCriacaoUsuario(Date.valueOf(LocalDate.now(ZoneId.of("UTC"))));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(this.usuariosService.save(usuarioModel));
+    }
+
+    // retorna todos os usuário do banco de dados
+    @GetMapping
+    public ResponseEntity<List<UsuariosModel>> getAllUsuarios() {
+        return ResponseEntity.status(HttpStatus.OK).body(usuariosService.findAll());
+    }
+
+    // retorn um usuário pelo id dele
+    @GetMapping("/{id_usuario}")
+    public ResponseEntity<Object> getOneUsuarios(@PathVariable(value = "id_usuario") int idUsuario) {
+        // tenta encontrar o usuário com o idqueremos
+        Optional<UsuariosModel> usuariosModelOptional = usuariosService.findById(idUsuario);
+
+        // caso não conseguiu encontrar retorna o estado "não encontrado"
+        if (!usuariosModelOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não encontrado: não existe um usuário com este id");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(usuariosModelOptional.get());
     }
 }
