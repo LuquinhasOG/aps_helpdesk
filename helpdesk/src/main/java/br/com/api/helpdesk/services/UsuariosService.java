@@ -36,4 +36,9 @@ public class UsuariosService {
     public Optional<UsuariosModel> findById(int idUsuario) {
         return usuariosRepository.findOneByIdUsuario(idUsuario);
     }
+
+    @Transactional
+    public void delete(UsuariosModel usuariosModel) {
+        usuariosRepository.delete(usuariosModel);
+    }
 }

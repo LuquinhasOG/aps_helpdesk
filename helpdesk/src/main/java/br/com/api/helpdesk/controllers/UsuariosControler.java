@@ -62,4 +62,21 @@ public class UsuariosControler {
 
         return ResponseEntity.status(HttpStatus.OK).body(usuariosModelOptional.get());
     }
+
+    @DeleteMapping("/{id_usuario}")
+    public ResponseEntity<Object> deleteUsuarios(@PathVariable(value = "id_usuario") int idUsuario) {
+        // tenta encontrar o usuário com o idqueremos
+        Optional<UsuariosModel> usuariosModelOptional = usuariosService.findById(idUsuario);
+
+        // caso não conseguiu encontrar retorna o estado "não encontrado"
+        if (!usuariosModelOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não encontrado: não existe um usuário com este id");
+        }
+
+        usuariosService.delete(usuariosModelOptional.get());
+        return ResponseEntity.status(HttpStatus.OK).body("Usuário deleto com sucesso");
+    }
+
+    //@PutMapping("/{id_usuario}")
+
 }
