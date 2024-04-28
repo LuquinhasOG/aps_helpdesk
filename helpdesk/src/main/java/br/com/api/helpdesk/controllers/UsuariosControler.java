@@ -65,7 +65,7 @@ public class UsuariosControler {
 
     @DeleteMapping("/{id_usuario}")
     public ResponseEntity<Object> deleteUsuarios(@PathVariable(value = "id_usuario") int idUsuario) {
-        // tenta encontrar o usuário com o idqueremos
+        // tenta encontrar o usuário com o id que queremos
         Optional<UsuariosModel> usuariosModelOptional = usuariosService.findById(idUsuario);
 
         // caso não conseguiu encontrar retorna o estado "não encontrado"
@@ -74,9 +74,29 @@ public class UsuariosControler {
         }
 
         usuariosService.delete(usuariosModelOptional.get());
-        return ResponseEntity.status(HttpStatus.OK).body("Usuário deleto com sucesso");
+        return ResponseEntity.status(HttpStatus.OK).body("Usuário deletado com sucesso");
     }
 
-    //@PutMapping("/{id_usuario}")
+    @PutMapping("/{id_usuario}")
+    public ResponseEntity<Object> updateUsuarios(@PathVariable(value = "id_usuario") int idUsuario, @RequestBody @Valid UsuariosDto usuariosDto) {
+        // tenta encontrar o usuário com o id que queremos
+        Optional<UsuariosModel> usuariosModelOptional = usuariosService.findById(idUsuario);
 
+        // caso não conseguiu encontrar retorna o estado "não encontrado"
+        if (!usuariosModelOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não encontrado: não existe um usuário com este id");
+        }
+
+        // pega os dados do usuário encontrado
+        UsuariosModel usuariosModel = usuariosModelOptional.get();
+
+        // atualiza os dados
+        usuariosModel.setNome(usuariosDto.getNome());
+        usuariosModel.setSenha(usuariosDto.getSenha());
+        usuariosModel.setEmail(usuariosDto.getEmail());
+        usuariosModel.setDataNascimento(usuariosDto.getDataNascimento());
+
+        // salva as alterações no banco de dados
+        return ResponseEntity.status(HttpStatus.OK).body(usuariosService.save(usuariosModel));
+    }
 }
