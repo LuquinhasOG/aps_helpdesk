@@ -34,7 +34,7 @@ public class UsuariosService {
 
     // retorna apenas um usuário específico
     public Optional<UsuariosModel> findById(int idUsuario) {
-        return usuariosRepository.findOneByIdUsuario(idUsuario);
+        return usuariosRepository.findById(idUsuario);
     }
 
     @Transactional

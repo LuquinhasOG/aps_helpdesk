@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600) // libera para qualquer aplicação rodando no computador possa acessar a API
 @RequestMapping("/usuarios") // diz a URL onde ocorre a requisição Rest
 public class UsuariosControler {
     final UsuariosService usuariosService;
