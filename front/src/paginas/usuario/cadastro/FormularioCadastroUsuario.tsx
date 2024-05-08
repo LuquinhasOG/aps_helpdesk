@@ -6,16 +6,12 @@ function FormularioCadastroUsuario({evento_atualizar, evento_cadastrar_usuario})
                 <input type="text" name="nome" onChange={evento_atualizar} />
             </div>
             <div className="d-flex flex-column">
-                <label>Senha</label>
-                <input type="password" name="senha" onChange={evento_atualizar} />
-            </div>
-            <div className="d-flex flex-column">
                 <label>E-mail</label>
                 <input type="email" name="email" onChange={evento_atualizar} />
             </div>
             <div className="d-flex flex-column">
-                <label>Repetir e-mail</label>
-                <input type="email" name="confirmarEmail" onChange={evento_atualizar} />
+                <label>Senha</label>
+                <input type="password" name="senha" onChange={evento_atualizar} />
             </div>
             <div className="d-flex flex-column">
                 <label>Data de nascimento</label>

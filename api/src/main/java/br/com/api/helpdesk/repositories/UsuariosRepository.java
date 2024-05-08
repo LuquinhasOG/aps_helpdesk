@@ -12,4 +12,6 @@ public interface UsuariosRepository extends JpaRepository<UsuariosModel, Integer
     public boolean existsByEmail(String email);
 
     Optional<UsuariosModel> findOneByIdUsuario(int idUsuario);
+
+    Optional<UsuariosModel> findByEmail(String email);
 }

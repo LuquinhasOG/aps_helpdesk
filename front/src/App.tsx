@@ -1,10 +1,8 @@
-import { useEffect, useState } from 'react';
-
-import RotasAplicativo from './RotasAplicativo';
+import Rotas from './rotas/Rotas';
 
 function App() {
   return (
-    <RotasAplicativo />
+    <Rotas />
   );
 }
 

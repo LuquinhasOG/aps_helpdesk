@@ -37,6 +37,11 @@ public class UsuariosService {
         return usuariosRepository.findById(idUsuario);
     }
 
+    // retorn apenas um usuário pelo email
+    public Optional<UsuariosModel> findByEmail(String email) {
+        return usuariosRepository.findByEmail(email);
+    }
+
     @Transactional
     public void delete(UsuariosModel usuariosModel) {
         usuariosRepository.delete(usuariosModel);

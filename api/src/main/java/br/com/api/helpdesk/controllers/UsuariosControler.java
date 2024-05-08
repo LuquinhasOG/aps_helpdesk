@@ -1,6 +1,8 @@
 package br.com.api.helpdesk.controllers;
 
+import br.com.api.helpdesk.dtos.LoginDto;
 import br.com.api.helpdesk.dtos.UsuariosDto;
+import br.com.api.helpdesk.models.LoginModel;
 import br.com.api.helpdesk.models.UsuariosModel;
 import br.com.api.helpdesk.services.UsuariosService;
 import jakarta.validation.Valid;
@@ -13,6 +15,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -43,6 +46,20 @@ public class UsuariosControler {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.usuariosService.save(usuarioModel));
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<Object> getUsuarioLogin(@RequestBody LoginDto login) {
+        if (!usuariosService.existsByEmail(login.getEmail())) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{ \"message\": \"Não existe nenhuma conta com este email\" }");
+        }
+
+        Optional<UsuariosModel> usuario = usuariosService.findByEmail(login.getEmail());
+        if (!Objects.equals(login.getSenha(), usuario.get().getSenha())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{ \"message\": \"Não existe nenhuma conta com este email\" }");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(usuario.get());
+    }
+
     // retorna todos os usuário do banco de dados
     @GetMapping
     public ResponseEntity<List<UsuariosModel>> getAllUsuarios() {
@@ -50,8 +67,8 @@ public class UsuariosControler {
     }
 
     // retorn um usuário pelo id dele
-    @GetMapping("/{id_usuario}")
-    public ResponseEntity<Object> getOneUsuarios(@PathVariable(value = "id_usuario") int idUsuario) {
+    @GetMapping("/id/{id_usuario}")
+    public ResponseEntity<Object> getOneUsuarioById(@PathVariable(value = "id_usuario") int idUsuario) {
         // tenta encontrar o usuário com o idqueremos
         Optional<UsuariosModel> usuariosModelOptional = usuariosService.findById(idUsuario);
 
@@ -62,6 +79,18 @@ public class UsuariosControler {
 
         return ResponseEntity.status(HttpStatus.OK).body(usuariosModelOptional.get());
     }
+
+    //@GetMapping("/email/{email_usuario}")
+    //public ResponseEntity<Object> getOneUsuarioByEmail(@PathVariable(value = "email_usuario") String email) {
+    //    Optional<UsuariosModel> usuariosModelOptional = usuariosService.findByEmail(email);
+
+        // caso não conseguiu encontrar retorna o estado "não encontrado"
+    //    if (!usuariosModelOptional.isPresent()) {
+    //        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não encontrado: não existe um usuário com este email");
+    //    }
+
+    //    return ResponseEntity.status(HttpStatus.OK).body(usuariosModelOptional.get());
+    //}
 
     @DeleteMapping("/{id_usuario}")
     public ResponseEntity<Object> deleteUsuarios(@PathVariable(value = "id_usuario") int idUsuario) {
