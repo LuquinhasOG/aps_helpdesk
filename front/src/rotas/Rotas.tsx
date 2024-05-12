@@ -1,10 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RotaPrivada from "./RotaPrivada";
-import Home from "../paginas/home/Home";
-import Cadastro from "../paginas/usuario/cadastro/Cadastro";
-import Login from "../paginas/usuario/login/Login";
-import Ticket from "../paginas/ticket/Ticket";
-import CentroDeChamados from "../paginas/centro_de_chamandos/CentroDeChamados";
+
+// importações das páginas
+import Home from "../paginas/home";
+import Cadastro from "../paginas/usuario/cadastro";
+import Login from "../paginas/usuario/login";
+import Ticket from "../paginas/ticket";
+import CentroDeChamados from "../paginas/centro_de_chamados";
 
 function Rotas() {
     // os componentes Route que tiverem RotaPrivada no parâmetro element, são páginas que só irão carregar se o usuário estiver logado
@@ -15,7 +17,7 @@ function Rotas() {
                 <Route path="/cadastro" element={<Cadastro />}></Route>
                 <Route path="/login" element={<Login />}></Route>
 
-                <Route path="/chamado" element={
+                <Route path="/chamado/:id_ticket" element={
                     <RotaPrivada>
                         <Ticket />
                     </RotaPrivada>}>

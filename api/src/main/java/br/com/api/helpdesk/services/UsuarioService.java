@@ -1,24 +1,23 @@
 package br.com.api.helpdesk.services;
 
-import br.com.api.helpdesk.models.UsuariosModel;
-import br.com.api.helpdesk.repositories.UsuariosRepository;
+import br.com.api.helpdesk.models.UsuarioModel;
+import br.com.api.helpdesk.repositories.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
-public class UsuariosService {
-    final UsuariosRepository usuariosRepository;
+public class UsuarioService {
+    final UsuarioRepository usuariosRepository;
 
-    public UsuariosService(UsuariosRepository usuariosRepository) {
+    public UsuarioService(UsuarioRepository usuariosRepository) {
         this.usuariosRepository = usuariosRepository;
     }
 
     @Transactional // transactional garante a aplicação dará rollback caso a transação de errado
-    public UsuariosModel save(UsuariosModel usuarioModel) {
+    public UsuarioModel save(UsuarioModel usuarioModel) {
         return usuariosRepository.save(usuarioModel);
     }
 
@@ -28,22 +27,22 @@ public class UsuariosService {
     }
 
     // método que retorna todos usuários
-    public List<UsuariosModel> findAll() {
+    public List<UsuarioModel> findAll() {
         return usuariosRepository.findAll();
     }
 
     // retorna apenas um usuário específico
-    public Optional<UsuariosModel> findById(int idUsuario) {
+    public Optional<UsuarioModel> findById(int idUsuario) {
         return usuariosRepository.findById(idUsuario);
     }
 
     // retorn apenas um usuário pelo email
-    public Optional<UsuariosModel> findByEmail(String email) {
+    public Optional<UsuarioModel> findByEmail(String email) {
         return usuariosRepository.findByEmail(email);
     }
 
     @Transactional
-    public void delete(UsuariosModel usuariosModel) {
+    public void delete(UsuarioModel usuariosModel) {
         usuariosRepository.delete(usuariosModel);
     }
 }

@@ -1,18 +1,17 @@
 class UsuarioServico {
-    apiLoginUrl: any;
+    apiLoginUrl: any = "http://localhost:8080/usuarios/login";
     nome: String | null = null;
     email: String | null = null;
     senha: String | null = null;
 
     constructor() {
-        this.apiLoginUrl = "http://localhost:8080/usuarios/login";
         this.nome = localStorage.getItem("nome");
         this.email = localStorage.getItem("email");
         this.senha = localStorage.getItem("senha");
     }
 
     cadastrar(informacoes: object) {
-        fetch("http://localhost:8080/usuarios", {
+        fetch(this.apiLoginUrl, {
             method: "post",
             body: JSON.stringify(informacoes),
             headers: {
@@ -57,6 +56,7 @@ class UsuarioServico {
             })
 
             if ("message" in resposta) {
+                console.log(resposta.message);
                 throw false;
             }
         } catch (e) {

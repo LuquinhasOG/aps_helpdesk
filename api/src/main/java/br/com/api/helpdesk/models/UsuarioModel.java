@@ -1,7 +1,6 @@
 package br.com.api.helpdesk.models;
 
 import java.sql.Date;
-import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,21 +16,27 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "usuarios")
-public class UsuariosModel {
+public class UsuarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_usuario") // anotação para que idUsuario seja a chave primária
     private int idUsuario; // chave primaria
+
     @Column(nullable = false, length = 255) // anotação para que nome seja um varchar(255) não nulo
     private String nome;
+
     @Column(nullable = false, length = 255) // anotação para que senha seja um varchar(255) não nulo
     private String senha;
+
     @Column(nullable = false, length = 255, unique = true) // anotação para que email seja um varchar(255) não nulo e não repetido
     private String email;
+
     @Column(nullable = false, name = "data_nascimento")
     private Date dataNascimento;
+
     @Column(nullable = false, name = "data_criacao_usuario")
     private Date dataCriacaoUsuario;
+
     @Column(nullable = false, name = "nivel_permissao")
     private int nivelPermissao;
 

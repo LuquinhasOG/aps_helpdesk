@@ -15,7 +15,7 @@ CREATE TABLE usuarios (
 	senha VARCHAR(255) NOT NULL,
 	email VARCHAR(255),
 	data_nascimento DATE,
-	data_criacao_usuario DATE DEFAULT NOW(),
+	data_criacao_usuario DATE,
 	nivel_permissao INT DEFAULT 1
 );
 
@@ -28,7 +28,7 @@ CREATE TABLE tickets (
 	id_ticket SERIAL PRIMARY KEY,
 	id_usuario_abertura INT REFERENCES usuarios(id_usuario),
 	id_estado_ticket INT REFERENCES estadotickets(id_estado_ticket) DEFAULT 1,
-	data_abertura TIMESTAMPTZ DEFAULT NOW(),
+	data_abertura TIMESTAMPTZ,
 	data_fechamento TIMESTAMPTZ,
 	titulo VARCHAR(150),
 	descricao VARCHAR(2000)
@@ -37,13 +37,13 @@ CREATE TABLE tickets (
 CREATE TABLE comentarios (
 	id_comentario SERIAL PRIMARY KEY,
 	conteudo_comentario VARCHAR(2000),
-	data_publicacao TIMESTAMPTZ DEFAULT NOW(),
+	data_publicacao TIMESTAMPTZ,
 	id_ticket_comentario INT REFERENCES tickets(id_ticket),
 	id_usuario_comentario INT REFERENCES usuarios(id_usuario)
 );
 
-INSERT INTO estadotickets (descricao) VALUES
-('Aberto'),
-('Cancelado pelo usuário de abertura'),
-('Resolvido'),
-('Fechado automaticamente');
+INSERT INTO estadotickets (id_estado_ticket, descricao) VALUES
+(1, 'Aberto'),
+(2, 'Cancelado pelo usuário de abertura'),
+(3, 'Resolvido'),
+(4, 'Fechado automaticamente');
