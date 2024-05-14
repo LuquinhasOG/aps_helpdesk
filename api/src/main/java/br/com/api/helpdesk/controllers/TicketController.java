@@ -1,7 +1,12 @@
 package br.com.api.helpdesk.controllers;
 
+import br.com.api.helpdesk.dtos.TicketDto;
 import br.com.api.helpdesk.models.TicketModel;
 import br.com.api.helpdesk.services.TicketService;
+import br.com.api.helpdesk.services.UsuarioService;
+import jakarta.validation.Valid;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +18,12 @@ import java.util.Optional;
 @CrossOrigin(origins = "*", maxAge = 3600) // libera para qualquer aplicação rodando no computador possa acessar a API
 @RequestMapping("/tickets") // diz a URL onde ocorre a requisição Rest
 public class TicketController {
+
     final TicketService ticketService;
 
-    public TicketController(TicketService ticketService) {
+    public TicketController(TicketService ticketService, UsuarioService usuarioService) {
         this.ticketService = ticketService;
+        //this.usuarioService = usuarioService;
     }
 
     // método que retorna todos os chamandos do banco de bados
@@ -37,5 +44,15 @@ public class TicketController {
         return ResponseEntity.status(HttpStatus.OK).body(ticket.get());
     }
 
-   // @PostMapping
+    @PostMapping
+    public ResponseEntity<Object> saveTicket(@RequestBody @Valid TicketDto ticketDto) {
+        TicketModel ticketModel = new TicketModel();
+        ticketService.atribuirUsuarioPorId(ticketModel, ticketDto.getUsuarioAbertura());
+        ticketService.atribuirEstadoTicketPorId(ticketModel, ticketDto.getEstadoTicket());
+        ticketModel.setTitulo(ticketDto.getTitulo());
+        ticketModel.setDescricao(ticketDto.getDescricao());
+        ticketModel.setDataAbertura(ticketDto.getDataAbertura());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(ticketService.save(ticketModel));
+    }
 }

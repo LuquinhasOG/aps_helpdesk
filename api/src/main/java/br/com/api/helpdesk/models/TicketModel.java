@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 @Table(name = "tickets")
 public class TicketModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idTicket; // chave primaria
 
     @ManyToOne
@@ -41,6 +41,7 @@ public class TicketModel {
 
     public UsuarioAberturaTicketModel getUsuarioAbertura() {
         UsuarioAberturaTicketModel modeloUsuarioAbertura = new UsuarioAberturaTicketModel();
+        modeloUsuarioAbertura.setIdUsuario(usuarioAbertura.getIdUsuario());
         modeloUsuarioAbertura.setNome(usuarioAbertura.getNome());
         modeloUsuarioAbertura.setEmail(usuarioAbertura.getEmail());
         modeloUsuarioAbertura.setNivelPermissao(usuarioAbertura.getNivelPermissao());

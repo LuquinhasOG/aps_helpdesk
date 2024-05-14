@@ -49,6 +49,7 @@ class UsuarioServico {
 
                 if (salvar) {
                     // implementar serviço de autenticação com token se der tempo
+                    localStorage.setItem("id_usuario", retorno.idUsuario);
                     localStorage.setItem("nome", retorno.nome);
                     localStorage.setItem("email", retorno.email);
                     localStorage.setItem("senha", retorno.senha);

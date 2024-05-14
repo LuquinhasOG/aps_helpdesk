@@ -4,9 +4,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UsuarioAberturaTicketModel {
+    private int idUsuario;
     private String nome;
     private String email;
     private int nivelPermissao;
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
     public String getNome() {
         return nome;
