@@ -1,6 +1,6 @@
-function BotaoBarraLateral({ativo, texto, evento_clique}) {
+function BotaoBarraLateral({ativo, id_botao, texto, evento_clique}) {
     return (
-        <p className={(ativo) ? "btn btn-primary" : "btn"} onClick={evento_clique}>{texto}</p>
+        <p className={(ativo == id_botao) ? "btn btn-primary" : "btn"} onClick={evento_clique}>{texto}</p>
     );
 }
 

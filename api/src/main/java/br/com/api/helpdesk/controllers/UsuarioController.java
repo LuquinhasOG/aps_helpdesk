@@ -33,7 +33,7 @@ public class UsuarioController {
         // antes de tudo, irá verificar se o email já está cadastrado
         // se já estiver, irá enviar a estado de conflito para a requisição
         if (usuarioService.existsByEmail(usuarioDto.getEmail())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflito: já existe um usuário com este email registrado");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("{ \"message\": \"Conflito: já existe um usuário com este email registrado\" }");
         }
 
         UsuarioModel usuarioModel = new UsuarioModel(); // cria um modelo para trabalhar com os dados

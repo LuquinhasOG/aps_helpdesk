@@ -44,6 +44,17 @@ public class TicketController {
         return ResponseEntity.status(HttpStatus.OK).body(ticket.get());
     }
 
+    @GetMapping("/usuario/{id_usuario}")
+    public ResponseEntity<Object> getAllTicketsByUsuario(@PathVariable(name = "id_usuario") int idUsuario) {
+        Optional<List<TicketModel>> ticket = ticketService.findByUsuarioId(idUsuario);
+
+        if (ticket.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não encontrado: não existe nenhum chamado com este id");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(ticket.get());
+    }
+
     @PostMapping
     public ResponseEntity<Object> saveTicket(@RequestBody @Valid TicketDto ticketDto) {
         TicketModel ticketModel = new TicketModel();

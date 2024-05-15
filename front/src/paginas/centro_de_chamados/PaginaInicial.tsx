@@ -1,17 +1,19 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import BarraLateral from "./BarraLateral";
 import BotaoBarraLateral from "./BotaoBarraLateral";
 import FormularioAberturaTicket from "./FormularioAberturaTicket";
-import { useNavigate } from "react-router-dom";
+import ContainerCardChamados from "./ContainerCardChamados";
+import UsuarioServico from "../../servicos/UsuarioServico";
+
+const usuario = new UsuarioServico();
+
+const idUsuario = usuario.idUsuario;
+const nivelPermissao = usuario.nivelPermissao;
 
 function PaginaInicial() {
-    const [abrindoChamado, setAbrindoChamado] = useState(false);
     const barraLateralRef = useRef(null);
-    const [botaoChamado, setBotaoChamado] = useState(true);
-    const [botaoChamadoAberto, setBotaoChamadosAbertos] = useState(false);
-    const [botaoChamadoFechado, setBotaoChamadosFechados] = useState(false);
-    const [botaoAbrirChamado, setBotaoAbrirChamado] = useState(false);
-
+    const [botaoAtivo, setBotaoAtivo] = useState(0);
     const mudarPagina = useNavigate();
 
     useEffect(() => {
@@ -22,31 +24,27 @@ function PaginaInicial() {
     }, []);
 
     const eventoClicarBotaoChamado = () => {
-        setBotaoChamado(true);
-        setBotaoChamadosAbertos(false);
-        setBotaoChamadosFechados(false);
-        setBotaoAbrirChamado(false);
+        setBotaoAtivo(0);
     }
 
     const eventoClicarBotaoChamadosAbertos = () => {
-        setBotaoChamado(false);
-        setBotaoChamadosAbertos(true);
-        setBotaoChamadosFechados(false);
-        setBotaoAbrirChamado(false);
+        setBotaoAtivo(1);
     }
 
     const eventoClicarBotaoChamadosFechados = () => {
-        setBotaoChamado(false);
-        setBotaoChamadosAbertos(false);
-        setBotaoChamadosFechados(true);
-        setBotaoAbrirChamado(false);
+        setBotaoAtivo(2);
     }
 
     const eventoClicarBotaoAbrirChamado = () => {
-        setBotaoChamado(false);
-        setBotaoChamadosAbertos(false);
-        setBotaoChamadosFechados(false);
-        setBotaoAbrirChamado(true);
+        setBotaoAtivo(3);
+    }
+
+    const verificaBotaoAtivo = () => {
+        if (botaoAtivo >= 0 && botaoAtivo <= 2) {
+            return <ContainerCardChamados id_usuario={idUsuario} id_estado_ticket={botaoAtivo} nivel_permissao={nivelPermissao} />;
+        } else if (botaoAtivo == 3) {
+            return <FormularioAberturaTicket />;
+        }
     }
 
     return (
@@ -56,14 +54,14 @@ function PaginaInicial() {
                 <div className="row">
                     <div className="col-3">
                         <BarraLateral referencia={barraLateralRef}>
-                            <BotaoBarraLateral texto="Todos Chamados" ativo={botaoChamado} evento_clique={eventoClicarBotaoChamado} />
-                            <BotaoBarraLateral texto="Chamados Abertos" ativo={botaoChamadoAberto} evento_clique={eventoClicarBotaoChamadosAbertos} />
-                            <BotaoBarraLateral texto="Chamados Fechado" ativo={botaoChamadoFechado} evento_clique={eventoClicarBotaoChamadosFechados} />
-                            <BotaoBarraLateral texto="Abrir Chamado" ativo={botaoAbrirChamado} evento_clique={eventoClicarBotaoAbrirChamado} />
+                            <BotaoBarraLateral id_botao={0} texto="Todos Chamados" ativo={botaoAtivo} evento_clique={eventoClicarBotaoChamado} />
+                            <BotaoBarraLateral id_botao={1} texto="Chamados Abertos" ativo={botaoAtivo} evento_clique={eventoClicarBotaoChamadosAbertos} />
+                            <BotaoBarraLateral id_botao={2} texto="Chamados Fechado" ativo={botaoAtivo} evento_clique={eventoClicarBotaoChamadosFechados} />
+                            <BotaoBarraLateral id_botao={3} texto="Abrir Chamado" ativo={botaoAtivo} evento_clique={eventoClicarBotaoAbrirChamado} />
                         </BarraLateral>
                     </div>
                     <div className="col">
-                        { (botaoAbrirChamado) ? <FormularioAberturaTicket /> : null }
+                        {verificaBotaoAtivo()}
                     </div>
                 </div>
             </div>
