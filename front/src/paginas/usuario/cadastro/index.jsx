@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import FormularioCadastroUsuario from './FormularioCadastroUsuario';
 import UsuarioServico from "../../../servicos/UsuarioServico";
+import { useNavigate } from 'react-router-dom';
 
 const usuarioServico = new UsuarioServico();
 
@@ -14,15 +15,15 @@ const modeloInformacoesFormulario = {
 
 function Cadastro() {
     const [informacoesFormulario, setInformacoesFormulario] = useState(modeloInformacoesFormulario);
+    const mudarPagina = useNavigate();
 
     const eventoAtualizarAoDigitar = (evento) => {
         setInformacoesFormulario({...informacoesFormulario, [evento.target.name]:evento.target.value})
-        console.log(informacoesFormulario)
     }
 
     const eventoCadastrarUsuario = (evento) => {
         // atualizando novamente para evitar erro nas informações enviadas
-        eventoAtualizarAoDigitar(evento)
+        eventoAtualizarAoDigitar(evento);
         usuarioServico.cadastrar(informacoesFormulario);
     }
 

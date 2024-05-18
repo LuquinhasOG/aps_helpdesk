@@ -1,6 +1,7 @@
 package br.com.api.helpdesk.controllers;
 
 import br.com.api.helpdesk.dtos.TicketDto;
+import br.com.api.helpdesk.models.EstadoTicketModel;
 import br.com.api.helpdesk.models.TicketModel;
 import br.com.api.helpdesk.services.TicketService;
 import br.com.api.helpdesk.services.UsuarioService;
@@ -65,5 +66,20 @@ public class TicketController {
         ticketModel.setDataAbertura(ticketDto.getDataAbertura());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(ticketService.save(ticketModel));
+    }
+
+    @PutMapping("{id_ticket}")
+    public ResponseEntity<Object> updateTicket(@PathVariable("id_ticket") int idTicket, @RequestBody @Valid TicketDto ticketDto) {
+        Optional<TicketModel> ticket = ticketService.findById(idTicket);
+        if (ticket.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Este chamado não existe");
+        }
+        TicketModel novoTicket = ticket.get();
+        novoTicket.setTitulo(ticketDto.getTitulo());
+        novoTicket.setDescricao(ticketDto.getDescricao());
+        novoTicket.setDataFechamento(ticketDto.getDataFechamento());
+        ticketService.atribuirEstadoTicketPorId(novoTicket, ticketDto.getEstadoTicket());
+
+        return ResponseEntity.status(HttpStatus.OK).body(ticketService.save(novoTicket));
     }
 }

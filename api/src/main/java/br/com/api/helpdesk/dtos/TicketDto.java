@@ -62,4 +62,12 @@ public class TicketDto {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    public Timestamp getDataFechamento() {
+        return dataFechamento;
+    }
+
+    public void setDataFechamento(Timestamp dataFechamento) {
+        this.dataFechamento = dataFechamento;
+    }
 }

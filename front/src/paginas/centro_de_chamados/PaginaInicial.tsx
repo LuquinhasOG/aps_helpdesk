@@ -56,7 +56,7 @@ function PaginaInicial() {
                         <BarraLateral referencia={barraLateralRef}>
                             <BotaoBarraLateral id_botao={0} texto="Todos Chamados" ativo={botaoAtivo} evento_clique={eventoClicarBotaoChamado} />
                             <BotaoBarraLateral id_botao={1} texto="Chamados Abertos" ativo={botaoAtivo} evento_clique={eventoClicarBotaoChamadosAbertos} />
-                            <BotaoBarraLateral id_botao={2} texto="Chamados Fechado" ativo={botaoAtivo} evento_clique={eventoClicarBotaoChamadosFechados} />
+                            <BotaoBarraLateral id_botao={2} texto="Chamados Finalizados" ativo={botaoAtivo} evento_clique={eventoClicarBotaoChamadosFechados} />
                             <BotaoBarraLateral id_botao={3} texto="Abrir Chamado" ativo={botaoAtivo} evento_clique={eventoClicarBotaoAbrirChamado} />
                         </BarraLateral>
                     </div>

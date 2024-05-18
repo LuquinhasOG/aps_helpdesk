@@ -1,13 +1,17 @@
 class UsuarioServico {
-    apiLoginUrl: any = "http://localhost:8080/usuarios/login";
+    apiLoginUrl: any = "http://localhost:8080/usuarios";
     nome: String | null = null;
     email: String | null = null;
     senha: String | null = null;
+    idUsuario: String | null = null;
+    nivelPermissao: String | null = null;
 
     constructor() {
         this.nome = localStorage.getItem("nome");
         this.email = localStorage.getItem("email");
         this.senha = localStorage.getItem("senha");
+        this.idUsuario = localStorage.getItem("id_usuario");
+        this.nivelPermissao = localStorage.getItem("nivel_permissao");
     }
 
     cadastrar(informacoes: object) {
@@ -19,12 +23,10 @@ class UsuarioServico {
                 'Accept': 'application/json'
             }
         })
-        .then(retorno_para_json => retorno_para_json.json())
-        .then(retorno => console.log(retorno))
     } 
 
     validarLogin() {
-        if (this.email == undefined || this.senha == undefined) {
+        if (this.email == undefined || this.email == "undefined" || this.senha == undefined || this.senha == "undefined") {
             return false;
         }
 
@@ -35,7 +37,7 @@ class UsuarioServico {
         try {
             let resposta: object = {};
 
-            fetch(this.apiLoginUrl, {
+            fetch(`${this.apiLoginUrl}/login`, {
                 method: "post",
                 body: JSON.stringify(dados),
                 headers: {
@@ -53,6 +55,7 @@ class UsuarioServico {
                     localStorage.setItem("nome", retorno.nome);
                     localStorage.setItem("email", retorno.email);
                     localStorage.setItem("senha", retorno.senha);
+                    localStorage.setItem("nivel_permissao", retorno.nivelPermissao);
                 }
             })
 

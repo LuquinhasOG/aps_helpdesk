@@ -35,6 +35,10 @@ public class TicketService {
         return ticketRepository.findById(idTicket);
     }
 
+    public Optional<EstadoTicketModel> findEstadoTicketById(int idEstadoTicket) {
+        return estadoTicketRepository.findById(idEstadoTicket);
+    }
+
     public Optional<List<TicketModel>> findByUsuarioId(int idUsuario) {
         Optional<UsuarioModel> usuario = usuarioRepository.findById(idUsuario);
         return ticketRepository.findByUsuarioAbertura(usuario.get());
