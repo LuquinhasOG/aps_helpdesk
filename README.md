@@ -11,3 +11,8 @@ npm install react-router-dom
 npm install
 
 npm run dev
+
+# Documentação da API com Swagger
+
+- Inicializar API
+- Entrar no localhost: http://localhost:8080/swagger-ui/index.html#/
