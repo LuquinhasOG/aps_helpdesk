@@ -1,13 +1,10 @@
 package br.com.api.helpdesk.controllers;
 
 import br.com.api.helpdesk.dtos.TicketDto;
-import br.com.api.helpdesk.models.EstadoTicketModel;
 import br.com.api.helpdesk.models.TicketModel;
 import br.com.api.helpdesk.services.TicketService;
 import br.com.api.helpdesk.services.UsuarioService;
 import jakarta.validation.Valid;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

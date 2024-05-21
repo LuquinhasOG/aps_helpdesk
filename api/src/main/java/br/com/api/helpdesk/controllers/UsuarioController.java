@@ -56,7 +56,6 @@ public class UsuarioController {
         if (!Objects.equals(login.getSenha(), usuario.get().getSenha())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{ \"message\": \"Não existe nenhuma conta com este email\" }");
         }
-
         return ResponseEntity.status(HttpStatus.OK).body(usuario.get());
     }
 

@@ -42,6 +42,16 @@ CREATE TABLE comentarios (
 	id_usuario_comentario INT REFERENCES usuarios(id_usuario)
 );
 
+CREATE TABLE patrimonio (
+	idPatrimonio SERIAL PRIMARY KEY,
+    nomePatrimonio VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    preco NUMERIC(10, 2) NOT NULL,
+    quantidade INT NOT NULL,
+    dataCriacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
 INSERT INTO estadotickets (id_estado_ticket, descricao) VALUES
 (1, 'Aberto'),
 (2, 'Cancelado pelo usuário de abertura'),
