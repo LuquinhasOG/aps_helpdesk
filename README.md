@@ -16,3 +16,7 @@ npm run dev
 
 - Inicializar API
 - Entrar no localhost: http://localhost:8080/swagger-ui/index.html#/
+
+# Lombok
+
+- Precisa baixar o plugin "Lombok" para funcionar
