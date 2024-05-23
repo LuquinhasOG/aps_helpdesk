@@ -37,7 +37,7 @@ public class PatrimonioController {
     public ResponseEntity<Object> getOnePatrimonio(@PathVariable(value = "id") UUID id) {
         Optional<PatrimonioModel> patrimonio = patrimonioRepository.findById((id));
         if(patrimonio.isEmpty()) {
-            throw new PatrimonioNotFound();
+            throw new IdPatrimonioBadRequest();
         }
         return ResponseEntity.status(HttpStatus.OK).body(patrimonio.get());
     }
@@ -48,7 +48,6 @@ public class PatrimonioController {
         if(patrimonio.isEmpty()) {
             throw new PatrimonioNotFound();
         }
-
         var patrimonioModel = patrimonio.get();
         BeanUtils.copyProperties(patrimonioDto, patrimonioModel);
         return ResponseEntity.status(HttpStatus.OK).body(patrimonioRepository.save(patrimonioModel));
