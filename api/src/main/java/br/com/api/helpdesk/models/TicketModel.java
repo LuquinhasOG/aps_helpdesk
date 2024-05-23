@@ -19,6 +19,10 @@ public class TicketModel {
     @JoinColumn(name = "id_estado_ticket")
     private EstadoTicketModel estadoTicket; // chave estrangeira para id_estado_ticket, cardinalidade muitos tickets para um estado
 
+    @ManyToOne
+    @JoinColumn(name = "id_patrimonio_ticket")
+    private PatrimonioModel patrimonioTicket;
+
     @Column(name = "data_abertura")
     private Timestamp dataAbertura;
 
@@ -30,6 +34,14 @@ public class TicketModel {
 
     @Column(length = 2000)
     private String descricao;
+
+    public PatrimonioModel getPatrimonioTicket() {
+        return patrimonioTicket;
+    }
+
+    public void setPatrimonioTicket(PatrimonioModel patrimonioTicket) {
+        this.patrimonioTicket = patrimonioTicket;
+    }
 
     public int getIdTicket() {
         return idTicket;

@@ -28,6 +28,7 @@ function FormularioAberturaTicket() {
         .then(retorno_para_json => retorno_para_json.json())
         .then(retorno => {
             localStorage.setItem("id_ticket_aberto", retorno.idTicket);
+            location.reload();
         })
     }
 
@@ -47,7 +48,7 @@ function FormularioAberturaTicket() {
                     <select name="patrimonios"></select>
                 </div>
                 <div className="col"></div>
-                <button className="col btn btn-success" onClick={eventoCadastrarTicket}>Abrir Chamado</button>
+                <input type="button" value="Abrir Chamado" className="col btn btn-success" onClick={eventoCadastrarTicket} />
             </div>
         </form>
     );

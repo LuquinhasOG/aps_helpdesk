@@ -1,6 +1,5 @@
 package br.com.api.helpdesk.models;
 
-import br.com.api.helpdesk.exception.IdPatrimonioBadRequest;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
