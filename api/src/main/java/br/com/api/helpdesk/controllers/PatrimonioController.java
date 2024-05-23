@@ -55,7 +55,6 @@ public class PatrimonioController {
         if(patrimonio.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\": \"não encontrado\"}");
         }
-
         var patrimonioModel = patrimonio.get();
         BeanUtils.copyProperties(patrimonioDto, patrimonioModel);
         return ResponseEntity.status(HttpStatus.OK).body(patrimonioRepository.save(patrimonioModel));
