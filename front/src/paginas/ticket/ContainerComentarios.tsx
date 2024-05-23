@@ -26,8 +26,6 @@ function ContainerComentarios({comentarios, estado_ticket}) {
         return null;
     }
 
-    console.log(respostaEscrita);
-
     const eventoAtualizarEscrevendoResposta = (evento) => {
         setRespostaEscrita({...respostaEscrita, [evento.target.name]:evento.target.value})
     }
@@ -39,7 +37,7 @@ function ContainerComentarios({comentarios, estado_ticket}) {
     }
 
     return (
-        <div className="container">
+        <div className="container border">
             <div className="m-5">
                 <h3>Respostas</h3>
                 <hr />

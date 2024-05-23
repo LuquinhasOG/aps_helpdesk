@@ -46,7 +46,7 @@ function Ticket() {
             temp.data_abertura = new Date(info_ticket.dataAbertura);
             temp.data_fechamento = new Date(info_ticket.dataFechamento);
             temp.estado_ticket = info_ticket.estadoTicket.descricao;
-            temp.patrimonio = info_ticket.patrimonioModel
+            temp.patrimonio = info_ticket.patrimonioTicket
             setInformacoesTicket(temp);
         })
     }, [])

@@ -40,6 +40,15 @@ public class PatrimonioController {
         return ResponseEntity.status(HttpStatus.OK).body(patrimonio.get());
     }
 
+    @GetMapping("/patrimonio/usuario/{id}")
+    public ResponseEntity<Object> getOnePatrimonioByIdUsuario(@PathVariable(value = "id") int idUsuario) {
+        Optional<List<PatrimonioModel>> patrimonio = patrimonioRepository.findByIdUsuario(idUsuario);
+        if(patrimonio.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\": \"não encontrado\"}");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(patrimonio.get());
+    }
+
     @PutMapping("/patrimonio/{id}")
     public ResponseEntity<Object> updatePatrimonio(@PathVariable(value="id") UUID id, @RequestBody @Valid PatrimonioDto patrimonioDto) {
         Optional<PatrimonioModel> patrimonio = patrimonioRepository.findById(id);

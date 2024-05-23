@@ -5,7 +5,8 @@ const modeloInformacoesPatrimonio = {
     descricao: "",
     preco: "0",
     quantidade: "0",
-    dataCriacao: new Date()
+    dataCriacao: new Date(),
+    idUsuario: localStorage.getItem("id_usuario")
 }
 
 function FormularioCadastroPatrimonio() {
