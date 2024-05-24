@@ -26,7 +26,7 @@ npm run dev
 ## 1: pgAdmin4:
 
   INSERT INTO patrimonio(id_patrimonio,data_criacao, descricao, nome_patrimonio, preco, quantidade) VALUES
-    (gen_random_uuid() ,? ,?, ?, ?, ?);
+    (gen_random_uuid(), NOW(), ?, ?, ?, ?);
 
 ## 2: SwaggerUI
   - Entrar em: http://localhost:8080/swagger-ui/index.html#/
