@@ -1,8 +1,10 @@
 package br.com.api.helpdesk.services;
 
 import br.com.api.helpdesk.models.EstadoTicketModel;
+import br.com.api.helpdesk.models.PatrimonioModel;
 import br.com.api.helpdesk.models.TicketModel;
 import br.com.api.helpdesk.models.UsuarioModel;
+import br.com.api.helpdesk.repositories.PatrimonioRepository;
 import br.com.api.helpdesk.repositories.TicketRepository;
 import br.com.api.helpdesk.repositories.UsuarioRepository;
 import br.com.api.helpdesk.repositories.EstadoTicketRepository;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class TicketService {
@@ -22,6 +25,9 @@ public class TicketService {
 
     @Autowired
     private EstadoTicketRepository estadoTicketRepository;
+
+    @Autowired
+    private PatrimonioRepository patrimonioRepository;
 
     public TicketModel save(TicketModel ticketModel) {
         return ticketRepository.save(ticketModel);
@@ -52,5 +58,10 @@ public class TicketService {
     public void atribuirEstadoTicketPorId(TicketModel ticketModel, int idEstadoTicket) {
         EstadoTicketModel estadoTicketModel = estadoTicketRepository.findOneByIdEstadoTicket(idEstadoTicket).get();
         ticketModel.setEstadoTicket(estadoTicketModel);
+    }
+
+    public void atribuirPatrimonioPorId(TicketModel ticketModel, UUID idPatrimonio) {
+        PatrimonioModel patrimonioModel = patrimonioRepository.findById(idPatrimonio).get();
+        ticketModel.setPatrimonioTicket(patrimonioModel);
     }
 }

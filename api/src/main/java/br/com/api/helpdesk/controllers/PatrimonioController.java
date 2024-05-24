@@ -1,8 +1,6 @@
 package br.com.api.helpdesk.controllers;
 
 import br.com.api.helpdesk.dtos.PatrimonioDto;
-import br.com.api.helpdesk.exception.IdPatrimonioBadRequest;
-import br.com.api.helpdesk.exception.PatrimonioNotFound;
 import br.com.api.helpdesk.models.PatrimonioModel;
 import br.com.api.helpdesk.repositories.PatrimonioRepository;
 import jakarta.validation.Valid;
@@ -37,7 +35,16 @@ public class PatrimonioController {
     public ResponseEntity<Object> getOnePatrimonio(@PathVariable(value = "id") UUID id) {
         Optional<PatrimonioModel> patrimonio = patrimonioRepository.findById((id));
         if(patrimonio.isEmpty()) {
-            throw new IdPatrimonioBadRequest();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\": \"não encontrado\"}");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(patrimonio.get());
+    }
+
+    @GetMapping("/patrimonio/usuario/{id}")
+    public ResponseEntity<Object> getOnePatrimonioByIdUsuario(@PathVariable(value = "id") int idUsuario) {
+        Optional<List<PatrimonioModel>> patrimonio = patrimonioRepository.findByIdUsuario(idUsuario);
+        if(patrimonio.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\": \"não encontrado\"}");
         }
         return ResponseEntity.status(HttpStatus.OK).body(patrimonio.get());
     }
@@ -46,7 +53,7 @@ public class PatrimonioController {
     public ResponseEntity<Object> updatePatrimonio(@PathVariable(value="id") UUID id, @RequestBody @Valid PatrimonioDto patrimonioDto) {
         Optional<PatrimonioModel> patrimonio = patrimonioRepository.findById(id);
         if(patrimonio.isEmpty()) {
-            throw new PatrimonioNotFound();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\": \"não encontrado\"}");
         }
         var patrimonioModel = patrimonio.get();
         BeanUtils.copyProperties(patrimonioDto, patrimonioModel);
@@ -57,7 +64,7 @@ public class PatrimonioController {
     public ResponseEntity<Object> deletePatrimonio(@PathVariable(value="id") UUID id) {
         Optional<PatrimonioModel> patrimonio = patrimonioRepository.findById(id);
         if(patrimonio.isEmpty()) {
-            throw new PatrimonioNotFound();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\": \"não encontrado\"}");
         }
         patrimonioRepository.delete(patrimonio.get());
         return ResponseEntity.status(HttpStatus.OK).body("Patrimônio deletado.");

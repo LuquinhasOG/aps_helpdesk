@@ -58,6 +58,7 @@ public class TicketController {
         TicketModel ticketModel = new TicketModel();
         ticketService.atribuirUsuarioPorId(ticketModel, ticketDto.getUsuarioAbertura());
         ticketService.atribuirEstadoTicketPorId(ticketModel, ticketDto.getEstadoTicket());
+        ticketService.atribuirPatrimonioPorId(ticketModel, ticketDto.getIdPatrimonio());
         ticketModel.setTitulo(ticketDto.getTitulo());
         ticketModel.setDescricao(ticketDto.getDescricao());
         ticketModel.setDataAbertura(ticketDto.getDataAbertura());

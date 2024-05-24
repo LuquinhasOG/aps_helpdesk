@@ -22,7 +22,8 @@ const modeloInformacoesTicket = {
     permissao_usuario_abertura: 1,
     data_abertura: new Date(),
     data_fechamento: new Date(),
-    estado_ticket: ""
+    estado_ticket: "",
+    patrimonio: {}
 }
 
 function Ticket() {
@@ -45,6 +46,7 @@ function Ticket() {
             temp.data_abertura = new Date(info_ticket.dataAbertura);
             temp.data_fechamento = new Date(info_ticket.dataFechamento);
             temp.estado_ticket = info_ticket.estadoTicket.descricao;
+            temp.patrimonio = info_ticket.patrimonioTicket
             setInformacoesTicket(temp);
         })
     }, [])

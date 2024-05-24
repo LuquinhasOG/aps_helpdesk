@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 public class TicketDto {
     @NotNull
@@ -22,6 +23,17 @@ public class TicketDto {
 
     @NotBlank
     private String descricao;
+
+    @NotNull
+    private UUID idPatrimonio;
+
+    public UUID getIdPatrimonio() {
+        return idPatrimonio;
+    }
+
+    public void setIdPatrimonio(UUID idPatrimonio) {
+        this.idPatrimonio = idPatrimonio;
+    }
 
     public int getUsuarioAbertura() {
         return usuarioAbertura;

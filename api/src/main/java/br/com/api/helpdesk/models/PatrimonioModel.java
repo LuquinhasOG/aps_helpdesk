@@ -1,12 +1,9 @@
 package br.com.api.helpdesk.models;
 
-import br.com.api.helpdesk.exception.IdPatrimonioBadRequest;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.*;
+
 import java.io.Serial;
-import jakarta.persistence.GenerationType;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,4 +28,5 @@ public class PatrimonioModel implements Serializable {
     private int quantidade;
     private String descricao;
     private Date dataCriacao;
+    private int idUsuario;
 }

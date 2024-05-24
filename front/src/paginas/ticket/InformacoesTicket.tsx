@@ -1,4 +1,5 @@
 import { formatadorDataHora } from "../../util/formatadores";
+import InformacoesPatrimonio from "./InformacoesPatrimonio";
 
 const modeloAtualizarTicket = {
     usuarioAbertura: 0,
@@ -6,7 +7,8 @@ const modeloAtualizarTicket = {
     dataAbertura: "2000-01-01",
     dataFechamento: new Date(),
     titulo: "",
-    descricao: ""
+    descricao: "",
+    idPatrimonio: ""
 }
 
 function InformacoesTicket({conteudo}) {
@@ -36,6 +38,7 @@ function InformacoesTicket({conteudo}) {
 
         atualizar.titulo = conteudo.titulo;
         atualizar.descricao = conteudo.descricao;
+        atualizar.idPatrimonio = conteudo.patrimonio.idPatrimonio;
 
         fetch(`http://localhost:8080/tickets/${conteudo.id_ticket}`, {
             method: "put",
@@ -58,10 +61,13 @@ function InformacoesTicket({conteudo}) {
                 <p>usuário de abertura: {conteudo.nome_usuario_abertura}</p>
                 <p className="ms-auto">abertura: {formatadorDataHora.format(conteudo.data_abertura)}</p>
             </div>
-            <p>Descrição do problema:</p>
-            <div className="container">
-                <p>{conteudo.descricao}</p>
+            <div className="border">
+                <h5>Descrição do problema:</h5>
+                <div className="container">
+                    <p>{conteudo.descricao}</p>
+                </div>
             </div>
+            <InformacoesPatrimonio conteudo={conteudo.patrimonio} />
             <div className="d-flex">
                 {criarBotoesAtualizar()}
             </div>

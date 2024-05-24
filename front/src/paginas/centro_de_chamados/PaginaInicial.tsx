@@ -5,6 +5,7 @@ import BotaoBarraLateral from "./BotaoBarraLateral";
 import FormularioAberturaTicket from "./FormularioAberturaTicket";
 import ContainerCardChamados from "./ContainerCardChamados";
 import UsuarioServico from "../../servicos/UsuarioServico";
+import FormularioCadastroPatrimonio from "./FormularioCadastroPatrimonio";
 
 const usuario = new UsuarioServico();
 
@@ -39,17 +40,23 @@ function PaginaInicial() {
         setBotaoAtivo(3);
     }
 
+    const eventoClicarBotaoCadastrarPatrimonio = () => {
+        setBotaoAtivo(4);
+    }
+
     const verificaBotaoAtivo = () => {
         if (botaoAtivo >= 0 && botaoAtivo <= 2) {
             return <ContainerCardChamados id_usuario={idUsuario} id_estado_ticket={botaoAtivo} nivel_permissao={nivelPermissao} />;
         } else if (botaoAtivo == 3) {
             return <FormularioAberturaTicket />;
+        } else if (botaoAtivo == 4) {
+            return <FormularioCadastroPatrimonio />;
         }
     }
 
     return (
         <div>
-            <h1>Página inicial do centro de chamados</h1>
+            <h2 className="text-center mb-4">Centro de Chamados</h2>
             <div className="container">
                 <div className="row">
                     <div className="col-3">
@@ -58,6 +65,7 @@ function PaginaInicial() {
                             <BotaoBarraLateral id_botao={1} texto="Chamados Abertos" ativo={botaoAtivo} evento_clique={eventoClicarBotaoChamadosAbertos} />
                             <BotaoBarraLateral id_botao={2} texto="Chamados Finalizados" ativo={botaoAtivo} evento_clique={eventoClicarBotaoChamadosFechados} />
                             <BotaoBarraLateral id_botao={3} texto="Abrir Chamado" ativo={botaoAtivo} evento_clique={eventoClicarBotaoAbrirChamado} />
+                            <BotaoBarraLateral id_botao={4} texto="Cadastrar Patrimônio" ativo={botaoAtivo} evento_clique={eventoClicarBotaoCadastrarPatrimonio} />
                         </BarraLateral>
                     </div>
                     <div className="col">
