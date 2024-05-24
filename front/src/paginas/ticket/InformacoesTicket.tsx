@@ -61,7 +61,7 @@ function InformacoesTicket({conteudo}) {
                 <p>usuário de abertura: {conteudo.nome_usuario_abertura}</p>
                 <p className="ms-auto">abertura: {formatadorDataHora.format(conteudo.data_abertura)}</p>
             </div>
-            <div className="border">
+            <div className="border container">
                 <h5>Descrição do problema:</h5>
                 <div className="container">
                     <p>{conteudo.descricao}</p>
