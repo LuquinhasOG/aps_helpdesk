@@ -65,8 +65,8 @@ npm run dev
 
   - Apertar [SEND]
 
-### IMPORTANTE: INDEPENDETE DA FORMA QUE FOR CRIAR O PATRIMONIO É NECESSÁRIO CRIAR UM COMANDO SQL PARA COLOCAR NO "Patrimonio.sql"
+## IMPORTANTE: INDEPENDETE DA FORMA QUE FOR CRIAR O PATRIMONIO É NECESSÁRIO CRIAR UM COMANDO SQL PARA COLOCAR NO "Patrimonio.sql"
 
-# Ver todos os patrimonios criados: localhost:8080/patrimonio
-# Ver patrimonio expecifico criado: localhost:8080/patrimonio/{id}
-# EXEMPLO GIFT CARD NINTENDO: http://localhost:8080/patrimonio/9933e778-5fcc-4b76-ba6b-cd05aa590356
+### Ver todos os patrimonios criados: localhost:8080/patrimonio
+### Ver patrimonio expecifico criado: localhost:8080/patrimonio/{id}
+### EXEMPLO GIFT CARD NINTENDO: http://localhost:8080/patrimonio/9933e778-5fcc-4b76-ba6b-cd05aa590356
