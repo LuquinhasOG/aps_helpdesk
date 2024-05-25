@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -38,6 +39,16 @@ public class ComentarioController {
     @GetMapping("/{id_comentario}")
     public ResponseEntity<Object> findByIdComentario(@PathVariable(value = "id_comentario") int idComentario) {
         Optional<ComentarioModel> comentario = comentarioService.findById(idComentario);
+        if (comentario.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\": \"não encontrado\"}");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(comentario.get());
+    }
+
+    @GetMapping("/ticket/{id_ticket}")
+    public ResponseEntity<Object> findByIdTicketComentario(@PathVariable(value = "id_ticket") int idTicket) {
+        Optional<List<ComentarioModel>> comentario = comentarioService.findAllByIdTicketComentario(idTicket);
         if (comentario.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\": \"não encontrado\"}");
         }

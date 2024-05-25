@@ -28,6 +28,10 @@ public class ComentarioService {
         return  comentarioRepository.findAll();
     }
 
+    public Optional<List<ComentarioModel>> findAllByIdTicketComentario(int idTicket) {
+        return  comentarioRepository.findByIdTicketComentario(idTicket);
+    }
+
     public Optional<ComentarioModel> findById(int idComentario) {
         return comentarioRepository.findById(idComentario);
     }

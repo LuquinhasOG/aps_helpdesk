@@ -1,6 +1,4 @@
 function InformacoesPatrimonio({conteudo}) {
-    console.log(conteudo);
-
     return (
         <div>
             { (conteudo != undefined) ?

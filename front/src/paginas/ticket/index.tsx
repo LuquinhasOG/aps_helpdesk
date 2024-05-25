@@ -3,14 +3,13 @@ import { useParams } from "react-router-dom";
 import ContainerComentarios from "./ContainerComentarios";
 import InformacoesTicket from "./InformacoesTicket";
 
-const comentarios_teste = [
-    {
-        id_comentario: 1,
-        conteudo_comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rutrum vel elit in faucibus. Sed elit lacus, aliquet sed mi vitae, iaculis aliquam dolor. Donec elementum, sapien non consequat ullamcorper, turpis lorem elementum dui, ac sollicitudin lectus turpis sed augue. Aenean molestie sed nisl cursus elementum. Sed condimentum metus et erat tincidunt, ut accumsan libero mollis. Quisque eu efficitur erat, eu venenatis erat. Sed molestie nunc urna, quis pretium purus euismod non. Donec pulvinar eros et nunc vulputate consectetur. Integer at lectus lacinia, consectetur justo id, cursus dolor.",
-        data_publicacao: "2024-05-08",
-        usuario_publicacao: "usuário"
-    }
-];
+const modeloComentario = {
+    id_comentario: 0,
+    conteudo_comentario: "",
+    data_publicacao: new Date(),
+    usuario_publicacao: "",
+    permissao: 0
+}
 
 const modeloInformacoesTicket = {
     id_ticket: 0,
@@ -28,6 +27,7 @@ const modeloInformacoesTicket = {
 
 function Ticket() {
     const [informacoesTicket, setInformacoesTicket] = useState({});
+    const [comentarioTicket, setComentariosTicket] = useState([]);
     let { id_ticket } = useParams();
 
     // busca as informações do cabeçalho do chamado
@@ -49,12 +49,30 @@ function Ticket() {
             temp.patrimonio = info_ticket.patrimonioTicket
             setInformacoesTicket(temp);
         })
+
+        fetch(`http://localhost:8080/comentarios/ticket/${id_ticket}`)
+        .then(retorno_para_json => retorno_para_json.json())
+        .then(info_ticket => {
+            const salvar = [];
+
+            info_ticket.map(el => {
+                const temp = {...modeloComentario};
+                temp.id_comentario = el.idComentario;
+                temp.conteudo_comentario = el.conteudoComentario;
+                temp.data_publicacao = new Date(el.dataPublicacao);
+                temp.usuario_publicacao = el.usuarioComentario.nome;
+                temp.permissao = el.usuarioComentario.nivelPermissao;
+                salvar.push(temp);
+            })
+
+            setComentariosTicket(salvar);
+        })
     }, [])
 
     return (
         <div>
             <InformacoesTicket conteudo={informacoesTicket} />
-            <ContainerComentarios id_ticket={id_ticket} estado_ticket={informacoesTicket.estado_ticket} comentarios={comentarios_teste} />
+            <ContainerComentarios id_ticket={id_ticket} estado_ticket={informacoesTicket.estado_ticket} comentarios={comentarioTicket} />
         </div>
     )
 }

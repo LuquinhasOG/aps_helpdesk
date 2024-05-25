@@ -27,8 +27,6 @@ function ContainerComentarios({comentarios, estado_ticket, id_ticket}) {
         return null;
     }
 
-    console.log(respostaEscrita);
-
     const eventoAtualizarEscrevendoResposta = (evento) => {
         const temp = {...respostaEscrita};
         temp.dataPublicacao = new Date();
@@ -47,7 +45,8 @@ function ContainerComentarios({comentarios, estado_ticket, id_ticket}) {
         })
         .then(retorno => retorno.json())
         .then(retorno => {
-            console.log(retorno)
+            console.log(retorno);
+            location.reload();
         })
     }
 
