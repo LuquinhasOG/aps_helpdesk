@@ -54,7 +54,7 @@ function Ticket() {
     return (
         <div>
             <InformacoesTicket conteudo={informacoesTicket} />
-            <ContainerComentarios estado_ticket={informacoesTicket.estado_ticket} comentarios={comentarios_teste} />
+            <ContainerComentarios id_ticket={id_ticket} estado_ticket={informacoesTicket.estado_ticket} comentarios={comentarios_teste} />
         </div>
     )
 }

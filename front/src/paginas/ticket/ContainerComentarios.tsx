@@ -2,12 +2,13 @@ import { useState } from "react";
 import Comentario from "./Comentario";
 
 const comentarioModelo = {
-	conteudo_comentario: "",
-	data_publicacao: new Date(),
-	id_usuario_publicacao: localStorage.getItem("id_usuario")
+	conteudoComentario: "",
+	dataPublicacao: new Date(),
+	idUsuarioComentario: localStorage.getItem("id_usuario"),
+    idTicketComentario: 0
 };
 
-function ContainerComentarios({comentarios, estado_ticket}) {
+function ContainerComentarios({comentarios, estado_ticket, id_ticket}) {
     const [respostaEscrita, setRespostaEscrita] = useState(comentarioModelo);
 
     const criarInputReposta = () => {
@@ -16,7 +17,7 @@ function ContainerComentarios({comentarios, estado_ticket}) {
                         <div className="flex-column">
                             <p>Escreva sua resposta:</p>
                             <form>
-                                <textarea name="conteudo_comentario" style={{width: "45rem", height: "10rem"}} onChange={eventoAtualizarEscrevendoResposta}></textarea>
+                                <textarea name="conteudoComentario" style={{width: "45rem", height: "10rem"}} onChange={eventoAtualizarEscrevendoResposta}></textarea>
                                 <input className="row ms-auto" type="button" onClick={eventoEnviarResposta} value="enviar" />
                             </form>
                         </div>
@@ -26,14 +27,28 @@ function ContainerComentarios({comentarios, estado_ticket}) {
         return null;
     }
 
+    console.log(respostaEscrita);
+
     const eventoAtualizarEscrevendoResposta = (evento) => {
-        setRespostaEscrita({...respostaEscrita, [evento.target.name]:evento.target.value})
+        const temp = {...respostaEscrita};
+        temp.dataPublicacao = new Date();
+        temp.idTicketComentario = id_ticket;
+        setRespostaEscrita({...temp, [evento.target.name]:evento.target.value})
     }
 
     const eventoEnviarResposta = (evento) => {
-        const temp = {...respostaEscrita};
-        temp.data_publicacao = new Date();
-        setRespostaEscrita(temp)
+        fetch("http://localhost:8080/comentarios", {
+            method: "post",
+            body: JSON.stringify(respostaEscrita),
+            headers: {
+                'Content-type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(retorno => retorno.json())
+        .then(retorno => {
+            console.log(retorno)
+        })
     }
 
     return (

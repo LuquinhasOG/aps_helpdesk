@@ -27,7 +27,7 @@ public class ComentarioController {
         comentarioModel.setDataPublicacao(comentario.getDataPublicacao());
         comentarioService.atribuirUsuarioPorId(comentarioModel, comentario.getIdUsuarioComentario());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(comentarioModel);
+        return ResponseEntity.status(HttpStatus.CREATED).body(comentarioService.save(comentarioModel));
     }
 
     @GetMapping

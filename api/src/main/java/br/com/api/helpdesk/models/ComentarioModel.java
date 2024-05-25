@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 public class ComentarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_comentario")
     private int idComentario;
 
     @Column(name = "conteudo_comentario")
