@@ -1,6 +1,21 @@
+import React from 'react';
+import './CentroChamados.css' ;
+import { useNavigate } from 'react-router-dom';
+
 function CentroDeChamados() {
     return (
-        <h1>Centro de chamados</h1>
+    
+        <body className="bodyitens">
+            <div className='bodydiv'>
+                <div className='centdiv'>
+                    <h4>Central de Chamados</h4>
+
+                </div>
+
+            </div>
+        
+        </body>
+        
     );
 }
 

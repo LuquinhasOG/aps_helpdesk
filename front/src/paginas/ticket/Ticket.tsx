@@ -1,6 +1,13 @@
+import "./Ticket.css"
+
 function Ticket() {
     return (
-        <h1>Página ticket</h1>
+       
+        <body className="bodyitens">
+        <div className="bodydiv">
+
+        </div>
+        </body>
     )
 }
 
