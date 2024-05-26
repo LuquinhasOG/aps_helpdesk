@@ -1,12 +1,11 @@
 package br.com.api.helpdesk.dtos;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.sql.Date;
 
-public class UsuariosDto {
+public class UsuarioDto {
     // essas anotações @NotBlank e @NotNull servem para a API não aceitar valores vazios
     // no caso @NotBlank é usado para verificar Strings, e @NotNull outros objetos como números e datas
     @NotBlank
@@ -17,7 +16,7 @@ public class UsuariosDto {
     private String email;
     @NotNull
     private Date dataNascimento;
-    private Date dataCriacaoUsuario; // aqui não precisa de verificação, pois o dia de criação do usuário será inserido no método de postagem de dados da classe UsuariosControler
+    private Date dataCriacaoUsuario; // aqui não precisa de verificação, pois o dia de criação do usuário será inserido no método de postagem de dados da classe UsuarioController
     @NotNull
     private int nivelPermissao;
 

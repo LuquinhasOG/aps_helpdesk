@@ -1,18 +1,21 @@
 class UsuarioServico {
-    apiLoginUrl: any;
+    apiLoginUrl: any = "http://localhost:8080/usuarios";
     nome: String | null = null;
     email: String | null = null;
     senha: String | null = null;
+    idUsuario: String | null = null;
+    nivelPermissao: String | null = null;
 
     constructor() {
-        this.apiLoginUrl = "http://localhost:8080/usuarios/login";
         this.nome = localStorage.getItem("nome");
         this.email = localStorage.getItem("email");
         this.senha = localStorage.getItem("senha");
+        this.idUsuario = localStorage.getItem("id_usuario");
+        this.nivelPermissao = localStorage.getItem("nivel_permissao");
     }
 
     cadastrar(informacoes: object) {
-        fetch("http://localhost:8080/usuarios", {
+        fetch(this.apiLoginUrl, {
             method: "post",
             body: JSON.stringify(informacoes),
             headers: {
@@ -20,12 +23,10 @@ class UsuarioServico {
                 'Accept': 'application/json'
             }
         })
-        .then(retorno_para_json => retorno_para_json.json())
-        .then(retorno => console.log(retorno))
     } 
 
     validarLogin() {
-        if (this.email == undefined || this.senha == undefined) {
+        if (this.email == undefined || this.email == "undefined" || this.senha == undefined || this.senha == "undefined") {
             return false;
         }
 
@@ -36,7 +37,7 @@ class UsuarioServico {
         try {
             let resposta: object = {};
 
-            fetch(this.apiLoginUrl, {
+            fetch(`${this.apiLoginUrl}/login`, {
                 method: "post",
                 body: JSON.stringify(dados),
                 headers: {
@@ -50,13 +51,16 @@ class UsuarioServico {
 
                 if (salvar) {
                     // implementar serviço de autenticação com token se der tempo
+                    localStorage.setItem("id_usuario", retorno.idUsuario);
                     localStorage.setItem("nome", retorno.nome);
                     localStorage.setItem("email", retorno.email);
                     localStorage.setItem("senha", retorno.senha);
+                    localStorage.setItem("nivel_permissao", retorno.nivelPermissao);
                 }
             })
 
             if ("message" in resposta) {
+                console.log(resposta.message);
                 throw false;
             }
         } catch (e) {

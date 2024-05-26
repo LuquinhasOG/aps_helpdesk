@@ -1,10 +1,9 @@
 package br.com.api.helpdesk.controllers;
 
 import br.com.api.helpdesk.dtos.LoginDto;
-import br.com.api.helpdesk.dtos.UsuariosDto;
-import br.com.api.helpdesk.models.LoginModel;
-import br.com.api.helpdesk.models.UsuariosModel;
-import br.com.api.helpdesk.services.UsuariosService;
+import br.com.api.helpdesk.dtos.UsuarioDto;
+import br.com.api.helpdesk.models.UsuarioModel;
+import br.com.api.helpdesk.services.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -21,56 +20,56 @@ import java.util.Optional;
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600) // libera para qualquer aplicação rodando no computador possa acessar a API
 @RequestMapping("/usuarios") // diz a URL onde ocorre a requisição Rest
-public class UsuariosControler {
-    final UsuariosService usuariosService;
+public class UsuarioController {
+    final UsuarioService usuarioService;
 
-    public UsuariosControler(UsuariosService usuariosService) {
-        this.usuariosService = usuariosService;
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
 
     // método post de usuários, sua função é de criar um conta
     @PostMapping
-    public ResponseEntity<Object> saveUsuarios(@RequestBody @Valid UsuariosDto usuarioDto) {
+    public ResponseEntity<Object> saveUsuarios(@RequestBody @Valid UsuarioDto usuarioDto) {
         // antes de tudo, irá verificar se o email já está cadastrado
         // se já estiver, irá enviar a estado de conflito para a requisição
-        if (usuariosService.existsByEmail(usuarioDto.getEmail())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflito: já existe um usuário com este email registrado");
+        if (usuarioService.existsByEmail(usuarioDto.getEmail())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("{ \"message\": \"Conflito: já existe um usuário com este email registrado\" }");
         }
 
-        UsuariosModel usuarioModel = new UsuariosModel(); // cria um modelo para trabalhar com os dados
+        UsuarioModel usuarioModel = new UsuarioModel(); // cria um modelo para trabalhar com os dados
         BeanUtils.copyProperties(usuarioDto, usuarioModel); // copia os dados para o model
 
         // utiliza um método set do modelo para que seja colocada a data de agora na coluna data_criacao_usuario no banco de dados
         usuarioModel.setDataCriacaoUsuario(Date.valueOf(LocalDate.now(ZoneId.of("UTC"))));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.usuariosService.save(usuarioModel));
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.usuarioService.save(usuarioModel));
     }
 
+    // método que recebe informações de login e autentica e devolve
     @PostMapping("/login")
     public ResponseEntity<Object> getUsuarioLogin(@RequestBody LoginDto login) {
-        if (!usuariosService.existsByEmail(login.getEmail())) {
+        if (!usuarioService.existsByEmail(login.getEmail())) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{ \"message\": \"Não existe nenhuma conta com este email\" }");
         }
 
-        Optional<UsuariosModel> usuario = usuariosService.findByEmail(login.getEmail());
+        Optional<UsuarioModel> usuario = usuarioService.findByEmail(login.getEmail());
         if (!Objects.equals(login.getSenha(), usuario.get().getSenha())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{ \"message\": \"Não existe nenhuma conta com este email\" }");
         }
-
         return ResponseEntity.status(HttpStatus.OK).body(usuario.get());
     }
 
     // retorna todos os usuário do banco de dados
     @GetMapping
-    public ResponseEntity<List<UsuariosModel>> getAllUsuarios() {
-        return ResponseEntity.status(HttpStatus.OK).body(usuariosService.findAll());
+    public ResponseEntity<List<UsuarioModel>> getAllUsuarios() {
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.findAll());
     }
 
     // retorn um usuário pelo id dele
     @GetMapping("/id/{id_usuario}")
     public ResponseEntity<Object> getOneUsuarioById(@PathVariable(value = "id_usuario") int idUsuario) {
         // tenta encontrar o usuário com o idqueremos
-        Optional<UsuariosModel> usuariosModelOptional = usuariosService.findById(idUsuario);
+        Optional<UsuarioModel> usuariosModelOptional = usuarioService.findById(idUsuario);
 
         // caso não conseguiu encontrar retorna o estado "não encontrado"
         if (!usuariosModelOptional.isPresent()) {
@@ -82,7 +81,7 @@ public class UsuariosControler {
 
     //@GetMapping("/email/{email_usuario}")
     //public ResponseEntity<Object> getOneUsuarioByEmail(@PathVariable(value = "email_usuario") String email) {
-    //    Optional<UsuariosModel> usuariosModelOptional = usuariosService.findByEmail(email);
+    //    Optional<UsuarioModel> usuariosModelOptional = usuarioService.findByEmail(email);
 
         // caso não conseguiu encontrar retorna o estado "não encontrado"
     //    if (!usuariosModelOptional.isPresent()) {
@@ -95,21 +94,21 @@ public class UsuariosControler {
     @DeleteMapping("/{id_usuario}")
     public ResponseEntity<Object> deleteUsuarios(@PathVariable(value = "id_usuario") int idUsuario) {
         // tenta encontrar o usuário com o id que queremos
-        Optional<UsuariosModel> usuariosModelOptional = usuariosService.findById(idUsuario);
+        Optional<UsuarioModel> usuariosModelOptional = usuarioService.findById(idUsuario);
 
         // caso não conseguiu encontrar retorna o estado "não encontrado"
         if (!usuariosModelOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não encontrado: não existe um usuário com este id");
         }
 
-        usuariosService.delete(usuariosModelOptional.get());
+        usuarioService.delete(usuariosModelOptional.get());
         return ResponseEntity.status(HttpStatus.OK).body("Usuário deletado com sucesso");
     }
 
     @PutMapping("/{id_usuario}")
-    public ResponseEntity<Object> updateUsuarios(@PathVariable(value = "id_usuario") int idUsuario, @RequestBody @Valid UsuariosDto usuariosDto) {
+    public ResponseEntity<Object> updateUsuarios(@PathVariable(value = "id_usuario") int idUsuario, @RequestBody @Valid UsuarioDto usuariosDto) {
         // tenta encontrar o usuário com o id que queremos
-        Optional<UsuariosModel> usuariosModelOptional = usuariosService.findById(idUsuario);
+        Optional<UsuarioModel> usuariosModelOptional = usuarioService.findById(idUsuario);
 
         // caso não conseguiu encontrar retorna o estado "não encontrado"
         if (!usuariosModelOptional.isPresent()) {
@@ -117,7 +116,7 @@ public class UsuariosControler {
         }
 
         // pega os dados do usuário encontrado
-        UsuariosModel usuariosModel = usuariosModelOptional.get();
+        UsuarioModel usuariosModel = usuariosModelOptional.get();
 
         // atualiza os dados
         usuariosModel.setNome(usuariosDto.getNome());
@@ -126,6 +125,6 @@ public class UsuariosControler {
         usuariosModel.setDataNascimento(usuariosDto.getDataNascimento());
 
         // salva as alterações no banco de dados
-        return ResponseEntity.status(HttpStatus.OK).body(usuariosService.save(usuariosModel));
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.save(usuariosModel));
     }
 }
