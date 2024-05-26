@@ -24,6 +24,9 @@ body {
     /* Ajuste a largura conforme necessário */
     height: 480px;
     margin-top: 30px;
+    padding-top: 5rem;
+    padding-left: 10rem;
+    padding-right: 10rem;
     /* Adiciona uma margem na parte superior */
     margin-bottom: 90px;
     /* Adiciona uma margem na parte inferior */
@@ -35,6 +38,11 @@ body {
     color: white;
     font-weight: bold;
     
+}
+
+.a {
+  position: relative;
+  top: 2rem;
 }
 
 .letter{

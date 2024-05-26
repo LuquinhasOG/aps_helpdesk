@@ -24,12 +24,6 @@ export function Bodydiv() {
                         </button>
                     </div>
                 </div>
-                <div className='div2'>
-                    <section className='section2'>
-                        <p>Lorem ipsum dolor sit amet.</p>
-                    </section>
-                    
-                </div>
             </div>
     </div>
     );

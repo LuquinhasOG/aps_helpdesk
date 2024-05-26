@@ -7,6 +7,7 @@ import Cadastro from "../paginas/usuario/cadastro";
 import Login from "../paginas/usuario/login";
 import Ticket from "../paginas/ticket";
 import CentroDeChamados from "../paginas/centro_de_chamados";
+import NavBar from "../paginas/home/Navbar";
 
 function Rotas() {
     return (
@@ -17,7 +18,7 @@ function Rotas() {
                 <Route path="/cadastro" element={<Cadastro />}></Route>
                 <Route path="/login" element={<Login />}></Route>
 
-                <Route path="/chamado" element={
+                <Route path="/chamado/:id_ticket" element={
                     <RotaPrivada>
                         <Ticket />
                     </RotaPrivada>}>

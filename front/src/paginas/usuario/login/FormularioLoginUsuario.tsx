@@ -6,13 +6,13 @@ function FormularioLoginUsuario({ evento_atualizar, evento_logar }) {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate("/FormularioCadastroUsuario");
+        navigate("/cadastro");
     }
 
     return (
         <>
             <div className="bodyitens">
-                <div className='bodydiv'>
+                <div className='bodydiv bg-gray a'>
                     <form className="d-flex flex-column">
                         <div className="d-flex flex-column">
                             <label>Email</label>

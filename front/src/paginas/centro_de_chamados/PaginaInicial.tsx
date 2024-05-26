@@ -7,6 +7,8 @@ import ContainerCardChamados from "./ContainerCardChamados";
 import UsuarioServico from "../../servicos/UsuarioServico";
 import FormularioCadastroPatrimonio from "./FormularioCadastroPatrimonio";
 
+import "./CentroChamados.css"
+
 const usuario = new UsuarioServico();
 
 const idUsuario = usuario.idUsuario;
@@ -57,7 +59,7 @@ function PaginaInicial() {
     return (
         <div>
             <h2 className="text-center mb-4">Centro de Chamados</h2>
-            <div className="container">
+            <div className="container a">
                 <div className="row">
                     <div className="col-3">
                         <BarraLateral referencia={barraLateralRef}>

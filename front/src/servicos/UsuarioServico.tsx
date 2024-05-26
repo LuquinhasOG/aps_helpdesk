@@ -71,6 +71,7 @@ class UsuarioServico {
     }
 
     logout() {
+        localStorage.removeItem("id_usuario");
         localStorage.removeItem("nome");
         localStorage.removeItem("email");
         localStorage.removeItem("senha");

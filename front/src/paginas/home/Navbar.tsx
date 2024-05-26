@@ -1,11 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import './Home.css';
+import UsuarioServico from "../../servicos/UsuarioServico";
+
+const usuarioService = new UsuarioServico;
 
 function NavBar() {
     const mudarPagina = useNavigate()
+
     const handleClick = (event: any) => {
         mudarPagina(event.target.name)
     }
+
+    const deslogar = () => {
+        usuarioService.logout();
+        location.reload()
+        mudarPagina("../login");
+    }
+
     return (
         <div className='navbardiv'>
             <div className='logo'>
@@ -15,14 +26,16 @@ function NavBar() {
                 <nav>
                     <ul className='listitem'>
                         <li>
-                        <button className='listext' name="./Home" onClick={handleClick} >HOME</button>
+                        <button className='listext' name="./" onClick={handleClick} >HOME</button>
                         </li>
                         <li>
-                            <button className='listext' name="./Ticket" onClick={handleClick} >TICKETS</button>
+                            <button className='listext' name="./centrodechamados" onClick={handleClick} >CHAMADOS</button>
                             
                         </li>
                         <li>
-                        <button className='listext' name="./FormularioLoginUsuario" onClick={handleClick} >ENTRE</button>
+                           { (usuarioService.validarLogin()) ?
+                            <button className='listext' onClick={deslogar} >SAIR</button>
+                            : <button className='listext' name="./login" onClick={handleClick} >ENTRE</button> }
                         </li>
                     </ul>
                 </nav>

@@ -1,6 +1,5 @@
 
 body{
- background-image: url(./arsg.jpg);
  background-position: center;
  background-repeat:no-repeat;
  background-size: cover;
@@ -28,4 +27,9 @@ body{
   justify-content: space-between;
   display: flex;
   box-shadow: 0 8px 16px black;
+}
+
+#conteudo-ticket {
+  position: relative;
+  top: 5rem;
 }

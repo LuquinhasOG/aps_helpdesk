@@ -4,7 +4,7 @@ import './FormularioCadastro.css';
 function FormularioCadastroUsuario({evento_atualizar, evento_cadastrar_usuario}) {
     return (
         <><div className="bodyitens">
-            <div className='bodydiv'>
+            <div className='bodydiv a'>
                 <form className="d-flex flex-column">
 
                     <div className="d-flex flex-column">
