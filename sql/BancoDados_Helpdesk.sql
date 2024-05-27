@@ -55,7 +55,7 @@ CREATE TABLE comentarios (
 	id_usuario_comentario INT REFERENCES usuarios(id_usuario)
 );
 
-INSERT INTO estadotickets (id_ticket, descricao) VALUES
+INSERT INTO estadotickets (id_estado_ticket, descricao) VALUES
 (1, 'Aberto'),
 (2, 'Cancelado pelo usuário de abertura'),
 (3, 'Resolvido'),

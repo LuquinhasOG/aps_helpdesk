@@ -1,72 +1,27 @@
-# dependencias
+# Sobre o projeto
 
+Projeto para a APS de Banco de Dados, em que o objetivo era criar um helpdesk. O nosso projeto é uma aplicação web onde o Back End foi desenvolvido em Java com SpringBoot para a API e PostgreSQL para o banco de dados, e o Front End feito em TypeScript usando a biblioteca React.
+
+# Dependências
+
+- PostegreSQL
 - Node.js v20.11.0
-- React Router DOM
+- React e React Router DOM (instruções de instalação na seção abaixo)
 - Java JDK 21
+- Maven
+- Spring Boot, Beans, JPA e Hibernate (serão instaladas automaticamente pelo maven)
 
-# iniciar projeto
+# Preparando para iniciar a aplicação pela primeira vez
 
-npm install react-router-dom
+## 1: Inicializando a API
 
-npm install
+Abra a pasta "api" como um projeto em uma IDE para desenvolvimento em Java, após encontre o arquivo "application.properties" em "api\src\main\resources" e abra ele. Este arquivo apresenta algumas configurações essenciais para a execução correta do projeto. A configuração "spring.datasource.url" diz qual banco de dados que vamos usar para armazenar as informações do helpdesk, depois é preciso colocar o nome e senha do usuário para se conectar ao SGBD, que são os campos "spring.datasource.username" e "spring.datasource.password", respectimente. Agora, basta compilar o projeto pelo método principal no arquivo "HelpdeskApplication.java" e rodar pela primeira vez, assim automaticamente as tabelas serão criadas. Após isso, interrompa a execução e insira os valores necessários que se encontram no final do script "sql/BancoDados_Helpdesk.sql". Feito isso a API estará funcionando corretamente na porta 8080 do host local.
 
-npm run dev
+## 2: Inicializando o site
+
+Abra a pasta "front" na console e digite "npm install", assim as primeiras dependências do React serão instaladas, após digite "npm install react-router-dom" para adicionar o React Router DOM. Com a instalação das biblitecas feita use o comando "npm run dev", feito isso o servidor web estará rodando na porta 5173, a qual deve ser acessado pelo navegador
 
 # Documentação da API com Swagger
 
 - Inicializar API
 - Entrar no localhost: http://localhost:8080/swagger-ui/index.html#/
-
-# Lombok
-
-- Precisa baixar o plugin "Lombok" para funcionar
-
-# Como criar patrimônios
-
-## 1: pgAdmin4:
-
-  INSERT INTO patrimonio(id_patrimonio,data_criacao, descricao, nome_patrimonio, preco, quantidade) VALUES
-    (gen_random_uuid(), NOW(), ?, ?, ?, ?);
-
-## 2: SwaggerUI
-  - Entrar em: http://localhost:8080/swagger-ui/index.html#/
-  - Ir em "patrimonio-controller"
-  - Ir em [POST] /patrimonio
-  - Try it out
-  - Editar o exemplo
-  - EXEMPLO:
-    
-{
-  "nomePatrimonio": "Gift card Ifood",
-  "preco": 50.00,
-  "quantidade": 123,
-  "descricao": "GIFT CARD IFOOD 50 REAIS",
-  "dataCriacao": "2024-05-24T12:26:14.447Z"
-}
-
-  - Apertar [EXECUTE]
-
-## 3: Postman:
-  - Ir em "Create new collection" -> "Blank Collection"
-  - Apertar no nome da collection com o botao direito
-  - Ir em "Add request"
-  - Trocar de "GET" para "POST"
-  - colocar a URL: localhost:8080/patrimonio
-  - Ir em "Body" e depois "Raw"
-  - Inserir os dados, EXEMPLO:
-    
-{
-  "nomePatrimonio": "Gift card Nintendo",
-  "preco": 500.00,
-  "quantidade": 9,
-  "descricao": "GIFT CARD NINTENDO 500 REAIS",
-  "dataCriacao": "2024-05-24T12:26:14.447Z"
-}
-
-  - Apertar [SEND]
-
-## IMPORTANTE: INDEPENDETE DA FORMA QUE FOR CRIAR O PATRIMONIO É NECESSÁRIO CRIAR UM COMANDO SQL PARA COLOCAR NO "Patrimonio.sql"
-
-### Ver todos os patrimonios criados: localhost:8080/patrimonio
-### Ver patrimonio expecifico criado: localhost:8080/patrimonio/{id}
-### EXEMPLO GIFT CARD NINTENDO: http://localhost:8080/patrimonio/9933e778-5fcc-4b76-ba6b-cd05aa590356
