@@ -34,7 +34,32 @@ CREATE TABLE patrimonios (
 	quantidade INT,
 	data_criacao DATE,
 	id_usuario_patrimonio INT REFERENCES usuarios(id_usuario)
-)
+);
+
+CREATE TABLE usuarios (
+	id_usuario SERIAL PRIMARY KEY,
+	nome VARCHAR(255) NOT NULL,
+	senha VARCHAR(255) NOT NULL,
+	email VARCHAR(255),
+	data_nascimento DATE,
+	data_criacao_usuario DATE DEFAULT NOW(),
+	nivel_permissao INT DEFAULT 1
+);
+
+CREATE TABLE estadotickets (
+	id_estado_ticket SERIAL PRIMARY KEY,
+	descricao VARCHAR(40)
+);
+
+CREATE TABLE patrimonios (
+	id_patrimonio SERIAL PRIMARY KEY,
+	nome_patrimonio VARCHAR(250),
+	descricao VARCHAR(500),
+	preco REAL,
+	quantidade INT,
+	data_criacao DATE,
+	id_usuario_patrimonio INT REFERENCES usuarios(id_usuario)
+);
 
 CREATE TABLE tickets (
 	id_ticket SERIAL PRIMARY KEY,
@@ -55,8 +80,13 @@ CREATE TABLE comentarios (
 	id_usuario_comentario INT REFERENCES usuarios(id_usuario)
 );
 
-INSERT INTO estadotickets (id_ticket, descricao) VALUES
+INSERT INTO estadotickets (id_estado_ticket, descricao) VALUES
 (1, 'Aberto'),
 (2, 'Cancelado pelo usuário de abertura'),
 (3, 'Resolvido'),
 (4, 'Fechado automaticamente');
+
+-- CRIAÇÃO DE PATRIMÔNIOS
+
+INSERT INTO patrimonios (id_patrimonio, data_criacao, descricao, nome_patrimonio, preco, quantidade)
+    VALUES (gen_random_uuid(), NOW(), ?, ?, ?, ?);
