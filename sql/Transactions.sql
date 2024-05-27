@@ -15,3 +15,5 @@ BEGIN;
 INSERT INTO comentarios (id_ticket_comentario, id_usuario_comentario, conteudo_comentario) VALUES
     (?, ?, ?);
 COMMIT;
+
+--teste
