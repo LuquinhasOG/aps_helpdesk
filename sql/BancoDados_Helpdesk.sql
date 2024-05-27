@@ -1,3 +1,5 @@
+-- não criem as tabelas do banco de dados por este script, ao iniciar a API elas são criadas automaticamente, apenas inserir os valores de estadotickets após rodar a api pela primeira vez
+
 CREATE DATABASE aps_helpdesk
     WITH
     OWNER = postgres
@@ -15,7 +17,7 @@ CREATE TABLE usuarios (
 	senha VARCHAR(255) NOT NULL,
 	email VARCHAR(255),
 	data_nascimento DATE,
-	data_criacao_usuario DATE,
+	data_criacao_usuario DATE DEFAULT NOW(),
 	nivel_permissao INT DEFAULT 1
 );
 
@@ -24,11 +26,22 @@ CREATE TABLE estadotickets (
 	descricao VARCHAR(40)
 );
 
+CREATE TABLE patrimonios (
+	id_patrimonio SERIAL PRIMARY KEY,
+	nome_patrimonio VARCHAR(250),
+	descricao VARCHAR(500),
+	preco REAL,
+	quantidade INT,
+	data_criacao DATE,
+	id_usuario_patrimonio INT REFERENCES usuarios(id_usuario)
+)
+
 CREATE TABLE tickets (
 	id_ticket SERIAL PRIMARY KEY,
 	id_usuario_abertura INT REFERENCES usuarios(id_usuario),
 	id_estado_ticket INT REFERENCES estadotickets(id_estado_ticket) DEFAULT 1,
-	data_abertura TIMESTAMPTZ,
+	id_patrimonio_ticket INT REFERENCES patrimonios(id_patrimonio),
+	data_abertura TIMESTAMPTZ DEFAULT NOW(),
 	data_fechamento TIMESTAMPTZ,
 	titulo VARCHAR(150),
 	descricao VARCHAR(2000)
@@ -37,22 +50,12 @@ CREATE TABLE tickets (
 CREATE TABLE comentarios (
 	id_comentario SERIAL PRIMARY KEY,
 	conteudo_comentario VARCHAR(2000),
-	data_publicacao TIMESTAMPTZ,
+	data_publicacao TIMESTAMPTZ DEFAULT NOW(),
 	id_ticket_comentario INT REFERENCES tickets(id_ticket),
 	id_usuario_comentario INT REFERENCES usuarios(id_usuario)
 );
 
-CREATE TABLE patrimonio (
-	idPatrimonio SERIAL PRIMARY KEY,
-    nomePatrimonio VARCHAR(100) NOT NULL,
-    descricao TEXT,
-    preco NUMERIC(10, 2) NOT NULL,
-    quantidade INT NOT NULL,
-    dataCriacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-
-INSERT INTO estadotickets (id_estado_ticket, descricao) VALUES
+INSERT INTO estadotickets (id_ticket, descricao) VALUES
 (1, 'Aberto'),
 (2, 'Cancelado pelo usuário de abertura'),
 (3, 'Resolvido'),

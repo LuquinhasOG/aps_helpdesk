@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ContainerComentarios from "./ContainerComentarios";
 import InformacoesTicket from "./InformacoesTicket";
+import "./Ticket.css"
 
 const modeloComentario = {
     id_comentario: 0,
@@ -70,7 +71,7 @@ function Ticket() {
     }, [])
 
     return (
-        <div>
+        <div id="conteudo-ticket">
             <InformacoesTicket conteudo={informacoesTicket} />
             <ContainerComentarios id_ticket={id_ticket} estado_ticket={informacoesTicket.estado_ticket} comentarios={comentarioTicket} />
         </div>

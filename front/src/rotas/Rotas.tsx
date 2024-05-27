@@ -7,11 +7,12 @@ import Cadastro from "../paginas/usuario/cadastro";
 import Login from "../paginas/usuario/login";
 import Ticket from "../paginas/ticket";
 import CentroDeChamados from "../paginas/centro_de_chamados";
+import NavBar from "../paginas/home/Navbar";
 
 function Rotas() {
-    // os componentes Route que tiverem RotaPrivada no parâmetro element, são páginas que só irão carregar se o usuário estiver logado
     return (
         <BrowserRouter>
+            <NavBar />
             <Routes>
                 <Route path="/" element={<Home />}></Route>
                 <Route path="/cadastro" element={<Cadastro />}></Route>

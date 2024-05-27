@@ -30,6 +30,7 @@ function Cadastro() {
     return (
         <div className='d-flex justify-content-center'>
             <FormularioCadastroUsuario evento_atualizar={eventoAtualizarAoDigitar} evento_cadastrar_usuario={eventoCadastrarUsuario} />
+                   
         </div>
     );
 }
