@@ -14,16 +14,16 @@ function Rotas() {
         <BrowserRouter>
             <NavBar />
             <Routes>
-                <Route path="/" element={<Home />}></Route>
-                <Route path="/cadastro" element={<Cadastro />}></Route>
-                <Route path="/login" element={<Login />}></Route>
+                <Route path="index.html/" element={<Home />}></Route>
+                <Route path="index.html/cadastro" element={<Cadastro />}></Route>
+                <Route path="index.html/login" element={<Login />}></Route>
 
-                <Route path="/chamado/:id_ticket" element={
+                <Route path="index.html/chamado/:id_ticket" element={
                     <RotaPrivada>
                         <Ticket />
                     </RotaPrivada>}>
                 </Route>
-                <Route path="/centrodechamados"element={
+                <Route path="index.html/centrodechamados"element={
                     <RotaPrivada>
                         <CentroDeChamados />
                     </RotaPrivada>}>
