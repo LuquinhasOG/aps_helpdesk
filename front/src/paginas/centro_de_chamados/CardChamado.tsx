@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function CardChamado({conteudo}) {
+function CardChamado({conteudo}: any) {
     const [idTicket, setIdTicket] = useState(0);
     const mudarPagina = useNavigate();
 

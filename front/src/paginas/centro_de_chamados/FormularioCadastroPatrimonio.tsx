@@ -14,7 +14,7 @@ function FormularioCadastroPatrimonio() {
 
     console.log(infoPatrimonioCadastrar);
 
-    const eventoAtualizarAoDigitar = (evento) => {
+    const eventoAtualizarAoDigitar = (evento:any) => {
         setInfoPatrimonioCadastrar({...infoPatrimonioCadastrar, [evento.target.name]:evento.target.value})
     }
 
@@ -22,7 +22,7 @@ function FormularioCadastroPatrimonio() {
         const temp = {...infoPatrimonioCadastrar};
         temp.dataCriacao = new Date();
 
-        fetch("http://localhost:8080/patrimonio", {
+        fetch("https://api-helpdesk-latest.onrender.com/patrimonio", {
             method: "post",
             body: JSON.stringify(infoPatrimonioCadastrar),
             headers: {

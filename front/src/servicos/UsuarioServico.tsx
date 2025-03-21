@@ -1,5 +1,5 @@
 class UsuarioServico {
-    apiLoginUrl: any = "http://localhost:8080/usuarios";
+    apiLoginUrl: any = "https://api-helpdesk-latest.onrender.com/usuarios";
     nome: String | null = null;
     email: String | null = null;
     senha: String | null = null;
@@ -57,6 +57,8 @@ class UsuarioServico {
                     localStorage.setItem("senha", retorno.senha);
                     localStorage.setItem("nivel_permissao", retorno.nivelPermissao);
                 }
+
+                location.reload();
             })
 
             if ("message" in resposta) {

@@ -1,6 +1,6 @@
 import { formatadorDataHora } from "../../util/formatadores";
 
-function Comentario({comentario}) {
+function Comentario({comentario}:any) {
     return (
         <div className="container bg-light mb-3 rounded">
             <p>{comentario.conteudo_comentario}</p>

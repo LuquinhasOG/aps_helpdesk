@@ -14,14 +14,13 @@ function Login() {
     const [informacoesFormulario, setInformacoesFormulario] = useState(modeloLoginFormulario);
     const mudarPagina = useNavigate();
 
-    const eventoAtualizarAoDigitar = (evento: Event) => {
+    const eventoAtualizarAoDigitar = (evento:any) => {
         setInformacoesFormulario({...informacoesFormulario, [evento.target.name]:evento.target.value})
         console.log(informacoesFormulario)
     }
 
     const eventoLogar = async () => {
         usuarioServico.logar(informacoesFormulario, true);
-        location.reload();
     }
 
     useEffect(() => {

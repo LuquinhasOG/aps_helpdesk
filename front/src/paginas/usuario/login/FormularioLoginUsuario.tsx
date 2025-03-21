@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import './FormularioLogin.css';
 
-function FormularioLoginUsuario({ evento_atualizar, evento_logar }) {
+function FormularioLoginUsuario({ evento_atualizar, evento_logar }:any) {
     const navigate = useNavigate();
 
     const handleClick = () => {

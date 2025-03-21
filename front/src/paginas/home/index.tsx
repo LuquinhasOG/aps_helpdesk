@@ -6,11 +6,8 @@ import NavBar from './Navbar';
 
 function Home() {
   return (
-   
-      <Bodydiv>
-      </Bodydiv>
+      <Bodydiv/>
   );
 
 }
 export default Home;
-

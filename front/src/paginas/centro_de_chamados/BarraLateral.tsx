@@ -1,4 +1,4 @@
-function BarraLateral({children, referencia}) {
+function BarraLateral({children, referencia}: any) {
     return (
         <aside ref={referencia} className="d-flex flex-column">
             {children}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import CardChamado from "./CardChamado";
 
-function ContainerCardChamados({id_usuario, id_estado_ticket, nivel_permissao}) {
+function ContainerCardChamados({id_usuario, id_estado_ticket, nivel_permissao}: any) {
     const [chamados, setChamados] = useState([]);
 
     console.log(chamados.length)
@@ -10,13 +10,13 @@ function ContainerCardChamados({id_usuario, id_estado_ticket, nivel_permissao}) 
         // se o nível for 1 (nível do usuário comum), ele vai poder ver só os chamados que ele abrir
         // mas se for maior que 1, vai ver todos os chamados
         if (nivel_permissao > 1) {
-            fetch(`http://localhost:8080/tickets`)
+            fetch(`https://api-helpdesk-latest.onrender.com/tickets`)
             .then(retorno => retorno.json())
             .then(retorno => {
                 setChamados(retorno);
             })
         } else {
-            fetch(`http://localhost:8080/tickets/usuario/${id_usuario}`)
+            fetch(`https://api-helpdesk-latest.onrender.com/tickets/usuario/${id_usuario}`)
             .then(retorno => retorno.json())
             .then(retorno => {
                 setChamados(retorno);
@@ -27,7 +27,7 @@ function ContainerCardChamados({id_usuario, id_estado_ticket, nivel_permissao}) 
     return (
         <div className="d-flex justify-content-around flex-row flex-wrap">
             {
-                chamados.map((el, i) => {
+                chamados.map((el: any, i) => {
                     if (id_estado_ticket == 0) {
                         return <CardChamado key={i} conteudo={el} />
                     } else if (id_estado_ticket == 1 && el.estadoTicket.idEstadoTicket == id_estado_ticket) {

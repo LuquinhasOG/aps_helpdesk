@@ -8,7 +8,7 @@ const comentarioModelo = {
     idTicketComentario: 0
 };
 
-function ContainerComentarios({comentarios, estado_ticket, id_ticket}) {
+function ContainerComentarios({comentarios, estado_ticket, id_ticket}:any) {
     const [respostaEscrita, setRespostaEscrita] = useState(comentarioModelo);
 
     const criarInputReposta = () => {
@@ -27,15 +27,15 @@ function ContainerComentarios({comentarios, estado_ticket, id_ticket}) {
         return null;
     }
 
-    const eventoAtualizarEscrevendoResposta = (evento) => {
+    const eventoAtualizarEscrevendoResposta = (evento:any) => {
         const temp = {...respostaEscrita};
         temp.dataPublicacao = new Date();
         temp.idTicketComentario = id_ticket;
         setRespostaEscrita({...temp, [evento.target.name]:evento.target.value})
     }
 
-    const eventoEnviarResposta = (evento) => {
-        fetch("http://localhost:8080/comentarios", {
+    const eventoEnviarResposta = (evento:any) => {
+        fetch("https://api-helpdesk-latest.onrender.com/comentarios", {
             method: "post",
             body: JSON.stringify(respostaEscrita),
             headers: {
@@ -57,7 +57,7 @@ function ContainerComentarios({comentarios, estado_ticket, id_ticket}) {
                 <hr />
                 <div>
                     {
-                        comentarios.map( c => <Comentario key={c.id_comentario} comentario={c} />)
+                        comentarios.map( (c:any) => <Comentario key={c.id_comentario} comentario={c} />)
                     }
                 </div>
                 {criarInputReposta()}

@@ -27,13 +27,13 @@ const modeloInformacoesTicket = {
 }
 
 function Ticket() {
-    const [informacoesTicket, setInformacoesTicket] = useState({});
+    const [informacoesTicket, setInformacoesTicket] = useState(modeloInformacoesTicket);
     const [comentarioTicket, setComentariosTicket] = useState([]);
     let { id_ticket } = useParams();
 
     // busca as informações do cabeçalho do chamado
     useEffect(() => {
-        fetch(`http://localhost:8080/tickets/${id_ticket}`)
+        fetch(`https://api-helpdesk-latest.onrender.com/tickets/${id_ticket}`)
         .then(retorno_para_json => retorno_para_json.json())
         .then(info_ticket => {
             const temp = { ...modeloInformacoesTicket };
@@ -51,12 +51,12 @@ function Ticket() {
             setInformacoesTicket(temp);
         })
 
-        fetch(`http://localhost:8080/comentarios/ticket/${id_ticket}`)
+        fetch(`https://api-helpdesk-latest.onrender.com/comentarios/ticket/${id_ticket}`)
         .then(retorno_para_json => retorno_para_json.json())
         .then(info_ticket => {
-            const salvar = [];
+            const salvar:any = [];
 
-            info_ticket.map(el => {
+            info_ticket.map((el:any) => {
                 const temp = {...modeloComentario};
                 temp.id_comentario = el.idComentario;
                 temp.conteudo_comentario = el.conteudoComentario;

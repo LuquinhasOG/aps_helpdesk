@@ -17,11 +17,13 @@ function Cadastro() {
     const [informacoesFormulario, setInformacoesFormulario] = useState(modeloInformacoesFormulario);
     const mudarPagina = useNavigate();
 
-    const eventoAtualizarAoDigitar = (evento) => {
+    console.log(informacoesFormulario);
+
+    const eventoAtualizarAoDigitar = (evento:any) => {
         setInformacoesFormulario({...informacoesFormulario, [evento.target.name]:evento.target.value})
     }
 
-    const eventoCadastrarUsuario = (evento) => {
+    const eventoCadastrarUsuario = (evento:any) => {
         // atualizando novamente para evitar erro nas informações enviadas
         eventoAtualizarAoDigitar(evento);
         usuarioServico.cadastrar(informacoesFormulario);

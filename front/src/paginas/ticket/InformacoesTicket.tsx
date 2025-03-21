@@ -11,7 +11,7 @@ const modeloAtualizarTicket = {
     idPatrimonio: ""
 }
 
-function InformacoesTicket({conteudo}) {
+function InformacoesTicket({conteudo}:any) {
     const criarBotoesAtualizar = () => {
         let usuarioAtivo = localStorage.getItem("id_usuario");
         let texto = "teste";
@@ -27,7 +27,7 @@ function InformacoesTicket({conteudo}) {
         return null;
     }
 
-    const atualizarEstadoTicket = (evento) => {
+    const atualizarEstadoTicket = (evento:any) => {
         let atualizar = {...modeloAtualizarTicket};
 
         if (evento.target.id == "btn_cancelar") {
@@ -40,7 +40,7 @@ function InformacoesTicket({conteudo}) {
         atualizar.descricao = conteudo.descricao;
         atualizar.idPatrimonio = conteudo.patrimonio.idPatrimonio;
 
-        fetch(`http://localhost:8080/tickets/${conteudo.id_ticket}`, {
+        fetch(`https://api-helpdesk-latest.onrender.com/tickets/${conteudo.id_ticket}`, {
             method: "put",
             body: JSON.stringify(atualizar),
             headers: {

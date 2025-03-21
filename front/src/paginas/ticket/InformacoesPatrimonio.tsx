@@ -1,4 +1,4 @@
-function InformacoesPatrimonio({conteudo}) {
+function InformacoesPatrimonio({conteudo}:any) {
     return (
         <div>
             { (conteudo != undefined) ?

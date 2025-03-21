@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import './FormularioCadastro.css';
 
-function FormularioCadastroUsuario({evento_atualizar, evento_cadastrar_usuario}) {
+function FormularioCadastroUsuario({evento_atualizar, evento_cadastrar_usuario}:any) {
     return (
         <><div className="bodyitens">
             <div className='bodydiv a'>
